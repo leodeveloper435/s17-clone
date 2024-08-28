@@ -11,7 +11,7 @@ const useFetchData = <T>(endPoint: EndPoint, data?: T) => {
   const fetchData = async () => {
     setLoading(!loading);
     try {
-      const result = await endPoint<T>(data);
+      const result = await endPoint(data);
       setResponse(result.data);
     } catch (error) {
       setError(error as Error);
