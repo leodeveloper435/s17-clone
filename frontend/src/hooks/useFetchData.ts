@@ -1,22 +1,27 @@
 import { AxiosResponse } from "axios";
 import { useState } from "react";
 
-type EndPoint = <T>(data?: T) => Promise<AxiosResponse>;
+type EndPoint = <T>(data: FuntionProps<T>) => Promise<AxiosResponse<any, any>>;
 
-const useFetchData = <T>(endPoint: EndPoint, data?: T) => {
+interface FuntionProps<T> {
+  url?: string;
+  body?: T;
+}
+
+const useFetchData = (endPoint: EndPoint) => {
   const [response, setResponse] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchData = async () => {
-    setLoading(!loading);
+  const fetchData = async <T>(data: FuntionProps<T>) => {
+    setLoading(true);
     try {
       const result = await endPoint(data);
       setResponse(result.data);
     } catch (error) {
       setError(error as Error);
     } finally {
-      setLoading(!loading);
+      setLoading(false);
     }
   };
 
