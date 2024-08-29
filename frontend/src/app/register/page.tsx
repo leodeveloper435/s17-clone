@@ -4,9 +4,10 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import useFormState from "@/hooks/useFormState";
 
 const Register: React.FC = () => {
-  const [form, setForm] = useState({
+  const { formState, setState } = useFormState({
     name: "",
     username: "",
     email: "",
@@ -16,7 +17,7 @@ const Register: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle register logic here
-    console.log("Register submitted", JSON.stringify(form));
+    console.log("Register submitted", JSON.stringify(formState));
   };
 
   return (
@@ -51,8 +52,8 @@ const Register: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Nombre y Apellido"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                value={formState.name}
+                onChange={setState}
               />
             </div>
             <div>
@@ -67,8 +68,8 @@ const Register: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                value={formState.email}
+                onChange={setState}
               />
             </div>
             <div>
@@ -82,8 +83,8 @@ const Register: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Usuario"
-                value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value })}
+                value={formState.username}
+                onChange={setState}
               />
             </div>
             <div>
@@ -98,8 +99,8 @@ const Register: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                value={formState.password}
+                onChange={setState}
               />
             </div>
           </div>
