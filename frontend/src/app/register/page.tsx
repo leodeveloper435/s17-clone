@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 const Register: React.FC = () => {
   const [form, setForm] = useState({
@@ -125,12 +126,12 @@ const Register: React.FC = () => {
             </div>
 
             <div className="text-sm">
-              <a
-                href="#"
+              <Link
+                href="login"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 ¿Ya tienes una cuenta? Inicia Sesión
-              </a>
+              </Link>
             </div>
           </div>
 
