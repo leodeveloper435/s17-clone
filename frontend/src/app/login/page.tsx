@@ -1,17 +1,18 @@
-"use client"
+"use client";
 // pages/login.tsx
 
-import React, { useState } from 'react';
-import Head from 'next/head';
+import React, { useState } from "react";
+import Head from "next/head";
+import Link from "next/link";
+import useFormState from "@/hooks/useFormState";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { formState, setState } = useFormState({ email: "", password: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
-    console.log('Login submitted', { email, password });
+    console.log("Login submitted", formState);
   };
 
   return (
@@ -24,9 +25,7 @@ const Login: React.FC = () => {
 
       <div className="max-w-md w-full space-y-8">
         <div className="flex justify-center">
-          <div className='w-1/2 h-0 p-20 bg-slate-300 rounded shadow-md '>
-          
-          </div>
+          <div className="w-1/2 h-0 p-20 bg-slate-300 rounded shadow-md "></div>
         </div>
 
         <div>
@@ -49,8 +48,8 @@ const Login: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Usuario"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formState.email}
+                onChange={setState}
               />
             </div>
             <div>
@@ -65,8 +64,8 @@ const Login: React.FC = () => {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formState.password}
+                onChange={setState}
               />
             </div>
           </div>
@@ -78,7 +77,10 @@ const Login: React.FC = () => {
           </button>
           <div className="flex items-center justify-between flex-col gap-4 ">
             <div className="flex items-center gap-4">
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Recordar contraseña
               </label>
               <input
@@ -90,15 +92,16 @@ const Login: React.FC = () => {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <Link
+                href="/register"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
                 ¿No tienes una cuenta? Regístrate
-              </a>
+              </Link>
             </div>
           </div>
 
-          <div>
-
-          </div>
+          <div></div>
         </form>
       </div>
     </div>
