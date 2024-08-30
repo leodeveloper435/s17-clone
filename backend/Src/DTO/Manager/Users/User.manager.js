@@ -22,8 +22,8 @@ class UserManager {
 
   async createOne(userData) {
     try {
-        if(data.password){
-            data.password = await EncriptarPassword(data.password)
+        if(userData.password){
+            userData.password = await EncriptarPassword(userData.password)
           }
       return await User.create(userData);
     } catch (error) {
@@ -88,7 +88,7 @@ class UserManager {
   async getUserByEmail(email) {
     try {
       return await User.findOne({
-        where: { Email: email },
+        where: {  email },
       });
     } catch (error) {
       console.error(`Error al obtener el usuario con el email ${email}:`, error);

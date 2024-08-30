@@ -2,7 +2,7 @@ import express from "express"
 import Session from "express-session"
 import dotenv from "dotenv"
 import AuthRouter from "./Routes/Auth/Auth.routes.js"
-import AuthFsRouter from "./Routes/Auth/Auth.fs.routes.js"
+import { __dirname } from "./Utils/RouteAbsolute.util.js"
 //Config to Express
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000
 //Middlewares Global
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+app.use(express.static(__dirname + "/public"));
 dotenv.config()
 
 //Cookies
@@ -23,7 +24,7 @@ app.use(Session({
 
 
 app.use("/api/v0",AuthRouter)
-app.use("/api",AuthFsRouter)
+
 
 app.listen(PORT,()=>{
     console.log(`Server Running On port ${PORT}`)

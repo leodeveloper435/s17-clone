@@ -10,7 +10,7 @@ document.getElementById('userForm').addEventListener('submit', async function(ev
     };
 
     try {
-        const response = await fetch('/api/registerFs', {
+        const response = await fetch('/api/v0/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
