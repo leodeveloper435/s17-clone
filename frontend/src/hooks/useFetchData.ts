@@ -9,6 +9,7 @@ interface FuntionProps<T> {
 }
 
 const useFetchData = (endPoint: EndPoint) => {
+  const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async <T>(data: FuntionProps<T>) => {
@@ -23,7 +24,7 @@ const useFetchData = (endPoint: EndPoint) => {
     }
   };
 
-  return { loading, fetchData };
+  return { response, loading, fetchData };
 };
 
 export default useFetchData;
