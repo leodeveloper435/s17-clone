@@ -9,23 +9,21 @@ interface FuntionProps<T> {
 }
 
 const useFetchData = (endPoint: EndPoint) => {
-  const [response, setResponse] = useState<any>(null);
-  const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async <T>(data: FuntionProps<T>) => {
     setLoading(true);
     try {
       const result = await endPoint(data);
-      setResponse(result.data);
+      return { ok: true, data: result.data };
     } catch (error) {
-      setError(error as Error);
+      return { ok: false, error: error };
     } finally {
       setLoading(false);
     }
   };
 
-  return { response, error, loading, fetchData };
+  return { loading, fetchData };
 };
 
 export default useFetchData;
