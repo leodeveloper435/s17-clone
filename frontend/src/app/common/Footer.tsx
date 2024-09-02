@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faFacebookF, faPinterest, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
     return (
         <footer className="bg-gray-900 text-gray-400 py-10">
             <div className="container mx-auto flex flex-wrap justify-between items-center">
