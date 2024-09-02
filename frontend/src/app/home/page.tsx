@@ -8,7 +8,6 @@ export default function () {
   const { user, setUser } = userStore((user) => user);
   const { response, fetchData } = useFetchData(getUserById);
 
-  console.log(process.env.NEXT_PUBLIC_URL_BASE);
   const getUser = async () => {
     await fetchData({ url: "1" });
   };
