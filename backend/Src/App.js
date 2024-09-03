@@ -2,6 +2,7 @@ import express from "express";
 import Session from "express-session";
 import dotenv from "dotenv";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
+import { router as campoRouter } from "../Src/Routes/Campo/Campo.routes.js";
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
 import cors from "cors";
 
@@ -27,6 +28,7 @@ app.use(
 );
 
 app.use("/api/v0", AuthRouter);
+app.use("/api/v0/campo", campoRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);

@@ -1,4 +1,4 @@
-import CampoService from "../../Service/Campo/Campo.service";
+import CampoService from "../../Service/Campo/Campo.service.js";
 
 export const getCampos = async (req, res) => {
   try {

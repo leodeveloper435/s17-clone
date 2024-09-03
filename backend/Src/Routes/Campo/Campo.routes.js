@@ -1,4 +1,4 @@
-import { Router } from "express";
+import express from "express";
 import {
   getCampos,
   getCampoById,
@@ -10,13 +10,13 @@ import {
 } from "../../Controllers/Campo/Campo.controller.js";
 export const router = express.Router();
 
-router.route("/campo").get(getCampos).post(createCampo).delete(deleteAllCampos);
+router.route("/").get(getCampos).post(createCampo).delete(deleteAllCampos);
 
 router
-  .route("/campo/:id")
+  .route("/:id")
   .get(getCampoById)
   .patch(updateCampo)
   .delete(deleteCampo);
 
-router.route("/campo/user/:id").get(getAllCamposByUserId);
+router.route("/user/:id").get(getAllCamposByUserId);
 
