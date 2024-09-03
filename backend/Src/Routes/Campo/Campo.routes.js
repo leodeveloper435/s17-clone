@@ -10,13 +10,13 @@ import {
 } from "../../Controllers/Campo/Campo.controller.js";
 export const router = express.Router();
 
-router.route("/").get(getCampos).post(createCampo).delete(deleteAllCampos);
+router.route("/campo").get(getCampos).post(createCampo).delete(deleteAllCampos);
 
 router
-  .route("/:id")
+  .route("/campo/:id")
   .get(getCampoById)
   .patch(updateCampo)
   .delete(deleteCampo);
 
-router.route("/user/:id").get(getAllCamposByUserId);
+router.route("/campo/user/:id").get(getAllCamposByUserId);
 
