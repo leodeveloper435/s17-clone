@@ -4,11 +4,10 @@ import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
 import { getUserById } from "@/services/userServices";
 
-export default function () {
+export default function Page() {
   const { user, setUser } = userStore((user) => user);
   const { response, fetchData } = useFetchData(getUserById);
 
-  console.log(process.env.NEXT_PUBLIC_URL_BASE);
   const getUser = async () => {
     await fetchData({ url: "1" });
   };

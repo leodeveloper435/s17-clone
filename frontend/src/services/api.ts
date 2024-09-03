@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 const api = axios.create({
-  baseURL: "https://retoolapi.dev/yDaHPH" || "http://localhost:3000", // url que viene del .env o el local
+  baseURL: process.env.URL_BASE || "http://localhost:3000/api/v0", // url que viene del .env o el local
   headers: {
     "Content-Type": "application/json",
   },

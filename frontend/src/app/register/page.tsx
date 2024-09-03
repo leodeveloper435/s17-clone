@@ -5,19 +5,28 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
+import useFetchData from "@/hooks/useFetchData";
+import { registerUser } from "@/services/userServices";
 
 const Register: React.FC = () => {
+  const { fetchData } = useFetchData(registerUser);
   const { formState, setState } = useFormState({
-    name: "",
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle register logic here
-    console.log("Register submitted", JSON.stringify(formState));
+
+    const response = await fetchData({ body: formState });
+
+    if (response) {
+      response.ok
+        ? alert("Se creo el usuario correctamente")
+        : alert("No se pudo crear el usuario");
+    } else alert("Ocurrio un error");
   };
 
   return (
@@ -42,17 +51,32 @@ const Register: React.FC = () => {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm space-y-8">
             <div>
-              <label htmlFor="name" className="sr-only">
-                Nombre y Apellido
+              <label htmlFor="firstName" className="sr-only">
+                Nombre
               </label>
               <input
-                id="name"
-                name="name"
+                id="firstName"
+                name="firstName"
                 type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Nombre y Apellido"
-                value={formState.name}
+                placeholder="Nombre "
+                value={formState.firstName}
+                onChange={setState}
+              />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="sr-only">
+                Apellido
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="lastName"
+                value={formState.lastName}
                 onChange={setState}
               />
             </div>
@@ -72,21 +96,7 @@ const Register: React.FC = () => {
                 onChange={setState}
               />
             </div>
-            <div>
-              <label htmlFor="username" className="sr-only">
-                Usuario
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Usuario"
-                value={formState.username}
-                onChange={setState}
-              />
-            </div>
+
             <div>
               <label htmlFor="password" className="sr-only">
                 Contraseña

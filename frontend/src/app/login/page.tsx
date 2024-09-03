@@ -5,14 +5,23 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
+import useFetchData from "@/hooks/useFetchData";
+import { loginUser } from "@/services/userServices";
 
 const Login: React.FC = () => {
   const { formState, setState } = useFormState({ email: "", password: "" });
+  const { fetchData } = useFetchData(loginUser);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
-    console.log("Login submitted", formState);
+    const response = await fetchData({ body: formState });
+
+    if (response) {
+      response.ok ? alert("Usuario correcto") : alert("Usuario incorrecto");
+    } else alert("Ocurrio un error");
+
+    console.log("Login", response?.data);
   };
 
   return (

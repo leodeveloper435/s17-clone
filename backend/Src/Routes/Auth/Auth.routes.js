@@ -1,9 +1,19 @@
 import { Router } from "express";
+<<<<<<< HEAD
 import { LogOutControllerSession,RegisterControllerSession,LoginControllerSession } from "../../Controllers/Auth/Auth.controller.js";
 import User from '../../DTO/Models/Users/User.model.js'
+=======
+import {
+  LogOutControllerSession,
+  RegisterControllerSession,
+  LoginControllerSession,
+} from "../../Controllers/Auth/Auth.controller.js";
+import Clima from "../Clima.routes.js";
+>>>>>>> fb3b3a4c550e7bd6f9b2435fc28461997893de6c
 
-const router = Router()
+const router = Router();
 
+<<<<<<< HEAD
 /**
  * @swagger
  * components:
@@ -93,3 +103,11 @@ router.delete("/logOut",LogOutControllerSession)
 
 
 export default router;
+=======
+router.post("/login", LoginControllerSession);
+router.post("/register", RegisterControllerSession);
+router.delete("/logOut", LogOutControllerSession);
+router.get("/clima", Clima);
+
+export default router;
+>>>>>>> fb3b3a4c550e7bd6f9b2435fc28461997893de6c
