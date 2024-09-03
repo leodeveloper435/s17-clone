@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
 import cors from "cors";
+import Clima from "./Routes/Clima.routes.js";
 
 //Config to Express
 const app = express();
@@ -26,7 +27,8 @@ app.use(
   })
 );
 
-app.use("/api/v0", AuthRouter);
+app.use("/api/v0/auth", AuthRouter);
+app.use("/api/v0/clima", Clima);
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
