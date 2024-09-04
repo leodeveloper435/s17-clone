@@ -3,8 +3,11 @@ import Session from "express-session";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
+import CampoRouter from "./Routes/Campo/Campo.routes.js";
+import ClimaRouter from "./Routes/Clima/Clima.routes.js";
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
 import path from "path";
+import cors from "cors";
 
 import swaggerjsdoc from "swagger-jsdoc";
 import swaggerui from "swagger-ui-express";
@@ -49,8 +52,8 @@ app.use(
 );
 
 app.use("/api/v0/auth", AuthRouter);
-app.use("/api/v0/clima", Clima);
-app.use("/api/v0/campo", campoRouter);
+app.use("/api/v0/clima", ClimaRouter);
+app.use("/api/v0/campo", CampoRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
