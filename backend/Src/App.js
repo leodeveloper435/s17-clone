@@ -5,6 +5,7 @@ import morgan from "morgan";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
 import CampoRouter from "./Routes/Campo/Campo.routes.js";
 import MarketRouter from "./Routes/Market/Market.routes.js"
+import DollarRouter from "./Routes/Dollar/Dollar.routes.js"
 import ClimaRouter from "./Routes/Clima/Clima.routes.js";
 import GeminiAIRouter from "./Routes/GeminiAI/GeminiAI.routes.js"
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
@@ -57,6 +58,7 @@ app.use("/api/v0/auth", AuthRouter);
 app.use("/api/v0/clima", ClimaRouter);
 app.use("/api/v0/campo", CampoRouter);
 app.use("/api/v0/market", MarketRouter);
+app.use("/api/v0/dollar", DollarRouter);
 app.use("/api/v0/recomendation", GeminiAIRouter)
 
 app.listen(PORT, () => {
