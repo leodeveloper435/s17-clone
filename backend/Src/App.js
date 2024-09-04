@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
 import CampoRouter from "./Routes/Campo/Campo.routes.js";
+import MarketRouter from "./Routes/Market/Market.routes.js"
 import ClimaRouter from "./Routes/Clima/Clima.routes.js";
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
 import path from "path";
@@ -54,6 +55,7 @@ app.use(
 app.use("/api/v0/auth", AuthRouter);
 app.use("/api/v0/clima", ClimaRouter);
 app.use("/api/v0/campo", CampoRouter);
+app.use("/api/v0/market", MarketRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
