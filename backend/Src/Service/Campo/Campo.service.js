@@ -6,7 +6,7 @@ class CampoService {
       return await CampoManager.findAll();
     } catch (error) {
       console.error("Error al obtener todos los campos:", error);
-      throw new Error("Error al buscar todos los campos");
+      throw error;
     }
   }
 
