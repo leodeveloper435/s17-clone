@@ -1,25 +1,18 @@
 import { Router } from "express";
-<<<<<<< HEAD
-import { LogOutControllerSession,RegisterControllerSession,LoginControllerSession } from "../../Controllers/Auth/Auth.controller.js";
-import User from '../../DTO/Models/Users/User.model.js'
-=======
 import {
   LogOutControllerSession,
   RegisterControllerSession,
   LoginControllerSession,
 } from "../../Controllers/Auth/Auth.controller.js";
-import Clima from "../Clima.routes.js";
->>>>>>> fb3b3a4c550e7bd6f9b2435fc28461997893de6c
 
 const router = Router();
 
-<<<<<<< HEAD
 /**
  * @swagger
  * components:
  *  schemas:
  *    User:
- *      type:object
+ *      type: object
  *      properties:
  *        email:
  *         type:string
@@ -29,21 +22,21 @@ const router = Router();
  *         description:name user
  *        apellido:
  *          type:string
- *          description:apellido user   
- *        password:   
+ *          description:apellido user
+ *        password:
  *          type:string
  *          description:password user
- *      required
+ *      required:
  *       - email
  *       - nombre
  *       - apellido
  *       - password
- *      example 
- *       email:orozco@gmail.com           
+ *      example:
+ *       email:orozco@gmail.com
  *       nombre:rafael
  *       apellido:orozco
  *       password:12345678
- * 
+ *
  */
 
 /**
@@ -64,7 +57,7 @@ const router = Router();
  *       401:
  *         description: Credenciales inválidas.
  */
-router.post("/login",LoginControllerSession)
+router.post("/login", LoginControllerSession);
 
 /**
  * @swagger
@@ -84,7 +77,7 @@ router.post("/login",LoginControllerSession)
  *       400:
  *         description: Error en la solicitud.
  */
-router.post("/register",RegisterControllerSession)
+router.post("/register", RegisterControllerSession);
 
 /**
  * @swagger
@@ -98,16 +91,7 @@ router.post("/register",RegisterControllerSession)
  *       401:
  *         description: Usuario no autenticado.
  */
-router.delete("/logOut",LogOutControllerSession)
 
-
-
-export default router;
-=======
-router.post("/login", LoginControllerSession);
-router.post("/register", RegisterControllerSession);
 router.delete("/logOut", LogOutControllerSession);
-router.get("/clima", Clima);
 
 export default router;
->>>>>>> fb3b3a4c550e7bd6f9b2435fc28461997893de6c

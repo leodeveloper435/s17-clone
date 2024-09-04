@@ -85,6 +85,7 @@ class UserManager {
       throw error;
     }
   }
+  
   async getUserByEmail(email) {
     try {
       return await User.findOne({

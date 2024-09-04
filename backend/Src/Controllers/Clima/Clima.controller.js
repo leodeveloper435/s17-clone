@@ -1,9 +1,7 @@
 import axios from "axios";
 import { Router } from "express";
 
-const router = Router();
-
-router.get("/today", async (req, res) => {
+const getTodayWeather = async (req, res) => {
   const { lat, lon } = req.query;
 
   try {
@@ -27,9 +25,9 @@ router.get("/today", async (req, res) => {
       .status(400)
       .json({ ok: false, response: `no se pudo buscar el clima ${error}` });
   }
-});
+};
 
-router.get("/fivedays", async (req, res) => {
+const getFiveDaysWeather = async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon)
@@ -55,6 +53,6 @@ router.get("/fivedays", async (req, res) => {
       .status(400)
       .json({ ok: false, response: `no se pudo buscar el clima ${error}` });
   }
-});
+};
 
-export default router;
+export default { getTodayWeather, getFiveDaysWeather };
