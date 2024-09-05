@@ -4,17 +4,11 @@ import React, { useState } from "react";
 import useFormState from "@/hooks/useFormState";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import { Input } from "@/components/form/Input";
-import { Poppins } from "next/font/google";
 import { Select } from "@/components/form/Select";
 import { ErrorMessage } from "@/components/form/ErrorMessage";
 import { findInputErrors, getFieldFormRules } from "@/utils/validationRules";
 import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
 import { convertStringToNumber } from "@/utils/conversions";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "800"],
-});
 
 const NewField: React.FC = () => {
   const { formState, setState } = useFormState({
