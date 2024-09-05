@@ -26,8 +26,9 @@ export const administrationOptions = [
     { value: "Alquilado", label: "Alquilado" },
 ]
 
-export const seaasonOptions = [
+const currentYear = new Date().getFullYear();
+export const seasonOptions = [
     { value: "", label: "Temporada" },
-    { value: "2023-2024", label: "2023-2024" },
-    { value: "2024-2025", label: "2024-2025" },
-]
+    { value: `${currentYear - 1}-${currentYear}`, label: `${currentYear - 1}-${currentYear}` },
+    { value: `${currentYear}-${currentYear + 1}`, label: `${currentYear}-${currentYear + 1}` },
+];

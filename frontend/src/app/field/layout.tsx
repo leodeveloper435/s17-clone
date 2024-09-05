@@ -16,8 +16,8 @@ export default function FieldLayout({
   return (
     <section className={poppins.className}>
       <Head>
-        <title>Register</title>
-        <meta name="description" content="Register page" />
+        <title>New Field</title>
+        <meta name="description" content="New Field page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
