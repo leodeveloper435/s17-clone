@@ -1,3 +1,4 @@
-.env
+**/.env 
+# ignora todos los .env del repo
 
 node_modules
