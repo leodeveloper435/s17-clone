@@ -9,10 +9,10 @@ interface FuntionProps<T> {
 }
 
 const useFetchData = (endPoint: EndPoint) => {
-  const [response, setResponse] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-
   const fetchData = async <T>(data: FuntionProps<T>) => {
+    console.log("se llamo al hook");
+
     setLoading(true);
     try {
       const result = await endPoint(data);
@@ -24,7 +24,7 @@ const useFetchData = (endPoint: EndPoint) => {
     }
   };
 
-  return { response, loading, fetchData };
+  return { loading, fetchData };
 };
 
 export default useFetchData;

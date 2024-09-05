@@ -19,8 +19,9 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log("se envio el formulario");
     const response = await fetchData({ body: formState });
+    console.log(response);
 
     if (response) {
       response.ok
