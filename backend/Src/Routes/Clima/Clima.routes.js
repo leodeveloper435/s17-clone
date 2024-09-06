@@ -1,9 +1,8 @@
 import { Router } from "express";
-import clima from "../../Controllers/Clima/Clima.controller.js";
+import { weatherForecast } from "../../Controllers/Clima/Clima.controller.js";
 
 const router = Router();
 
-router.get("/today", clima.getTodayWeather);
-router.get("/fivedays", clima.getFiveDaysWeather);
+router.get("/forescast", weatherForecast);
 
 export default router;
