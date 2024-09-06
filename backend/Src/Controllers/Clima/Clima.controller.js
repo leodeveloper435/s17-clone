@@ -1,58 +1,16 @@
-import axios from "axios";
-import { Router } from "express";
+import { getToday } from "../../Service/Clima/Clima.service.js";
+import { formatearClima } from "../../Utils/FormatWeatherData.js";
 
-const getTodayWeather = async (req, res) => {
-  const { lat, lon } = req.query;
-
-  try {
-    const climaData = await axios.get(
-      "https://api.openweathermap.org/data/3.0/onecall",
-      {
-        params: {
-          lat: lat,
-          lon: lon,
-          appid: process.env.OPEN_WEATHER_API_KEY,
-          lang: "es",
-          units: "metric",
-          exclude: "minutely,alerts,daily",
-        },
-      }
-    );
-
-    res.json({ ok: true, response: climaData.data });
-  } catch (error) {
-    res
-      .status(400)
-      .json({ ok: false, response: `no se pudo buscar el clima ${error}` });
-  }
-};
-
-const getFiveDaysWeather = async (req, res) => {
+export const weatherForecast = async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon)
-    res.status(400).send({ ok: false, response: "Falta longitude o latitud" });
+    res.status(404).json({ error: "Falta longitude o latitud" });
 
   try {
-    const climaData = await axios.get(
-      "https://api.openweathermap.org/data/2.5/forecast",
-      {
-        params: {
-          lat: lat,
-          lon: lon,
-          appid: process.env.OPEN_WEATHER_API_KEY,
-          lang: "es",
-          units: "metric",
-        },
-      }
-    );
-
-    res.json({ ok: true, response: climaData.data });
+    const forecast = formatearClima((await getToday(lat, lon)).data);
+    res.json(forecast);
   } catch (error) {
-    res
-      .status(400)
-      .json({ ok: false, response: `no se pudo buscar el clima ${error}` });
+    res.status(404).json({ error: `no se pudo buscar el clima ${error}` });
   }
 };
-
-export default { getTodayWeather, getFiveDaysWeather };
