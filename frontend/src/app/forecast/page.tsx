@@ -81,8 +81,8 @@ const WeatherDashboard: FC = () => {
         </div>
 
         {/* Weather card for selected city */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-1 row-span-2 bg-green-300 rounded-lg p-4 text-gray-800">
+        <div className="grid grid-cols-8 gap-4">
+          <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800">
             <div className="flex flex-col items-center mb-2 gap-4">
               <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div>
               <div className="text-4xl font-bold">23.5°C</div>
@@ -94,7 +94,7 @@ const WeatherDashboard: FC = () => {
           </div>
 
           {/* Weekly forecast */}
-          <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
+          <div className="col-span-6 bg-gray-800 rounded-lg p-4 text-white">
             <div className="flex justify-between">
               {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day) => (
                 <div key={day} className="text-center">
@@ -107,7 +107,7 @@ const WeatherDashboard: FC = () => {
           </div>
 
           {/* Sunrise/Sunset */}
-          <div className="bg-gray-800 rounded-lg p-4 text-white">
+          <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
             <div className="flex justify-between">
               <div>
                 <Image src="/sunrise.svg" alt="Sunrise" width={50} height={50} />
@@ -123,22 +123,22 @@ const WeatherDashboard: FC = () => {
           </div>
 
           {/* UV Index */}
-          <div className="bg-gray-800 rounded-lg p-4 text-white">
+          <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
             <div>Índice de UV</div>
             <div className="text-2xl font-bold">5.50 uv</div>
             <div>Alto</div>
           </div>
 
           {/* Moon phase */}
-          <div className="bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
-          <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
+          <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
+            <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
             <div>Argentina</div>
             <div>08:30</div>
             <div>Luna llena</div>
           </div>
 
           {/* Weather details */}
-          <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
+          <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
             <div className="grid grid-cols-2 gap-4">
               <div>Temperatura máxima: 19°</div>
               <div>Temperatura mínima: 15°</div>
@@ -147,6 +147,11 @@ const WeatherDashboard: FC = () => {
               <div>Viento: 5km/h</div>
             </div>
           </div>
+          {/* Weather infographics */}
+          <div className="col-span-3 row-span-2 bg-gray-800 rounded-lg ">
+            <Image src="/riego.png" alt="Weather" width={500} height={500} />
+          </div>
+          
 
           {/* Hourly forecast */}
           <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
@@ -158,6 +163,12 @@ const WeatherDashboard: FC = () => {
                   <div>18°</div>
                 </div>
               ))}
+            </div>
+          </div>
+          {/* Hourly forecast */}
+          <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
+            <div className="flex justify-between text-xl">
+              Se recomiendan riegos moderados
             </div>
           </div>
         </div>
