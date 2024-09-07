@@ -19,17 +19,13 @@ export default function Page() {
   return (
     <div className="min-h-[calc(100vh-95px)]">
       <h1>Informacion de la api</h1>
-      {/* <pre>{JSON.stringify(response, null, 2) || "sin informacion"}</pre> */}
 
       <h1>Mi estado local:</h1>
-      <pre>{JSON.stringify(user, null, 2) || "sin informacion"}</pre>
+      <pre className="text-wrap">
+        {JSON.stringify(user, null, 2) || "sin informacion"}
+      </pre>
 
-      <div className=" space-x-5">
-        <button onClick={getUser}>Hacer llamada a la api</button>
-        {/* <button onClick={modifyUser}>
-          Actualizar infomacion en estado local
-        </button> */}
-      </div>
+      <div className=" space-x-5"></div>
     </div>
   );
 }
