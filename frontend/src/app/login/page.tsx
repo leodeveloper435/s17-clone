@@ -7,19 +7,25 @@ import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
 import { loginUser } from "@/services/userServices";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { userStore } from "@/context/zustand";
 
 const Login: React.FC = () => {
   const { formState, setState } = useFormState({ email: "", password: "" });
   const { fetchData } = useFetchData(loginUser);
+  const setUser = userStore((data) => data.setUser);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
     const response = await fetchData({ body: formState });
 
-    if (response) {
-      response.ok ? alert("Usuario correcto") : alert("Usuario incorrecto");
-    } else alert("Ocurrio un error");
+    if (response.ok) {
+      toast.success("Usuario correcto");
+      setUser(response.data);
+      router.push("home");
+    } else toast.error("Usuario incorrecto");
 
     console.log("Login", response?.data);
   };

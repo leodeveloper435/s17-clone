@@ -1,12 +1,14 @@
 "use client";
 // pages/login.tsx
 
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
 import { registerUser } from "@/services/userServices";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
   const { fetchData } = useFetchData(registerUser);
@@ -16,18 +18,17 @@ const Register: React.FC = () => {
     email: "",
     password: "",
   });
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("se envio el formulario");
     const response = await fetchData({ body: formState });
     console.log(response);
 
-    if (response) {
-      response.ok
-        ? alert("Se creo el usuario correctamente")
-        : alert("No se pudo crear el usuario");
-    } else alert("Ocurrio un error");
+    response.ok
+      ? (toast.success("Se creo el usuario correctamente"),
+        router.push("login"))
+      : toast.error("No se pudo crear el usuario");
   };
 
   return (
