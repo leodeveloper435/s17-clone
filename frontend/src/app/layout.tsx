@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "./common/Footer";
 import Header from "@/app/common/Header";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,17 +15,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+  children,
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
+    <html lang="en">
       <body className={inter.className}>
-      <Header />
-      <main>{children}</main>
-      <Footer /> {/* Include the Footer component here */}
+        <Toaster richColors />
+        <Header />
+        <main>{children}</main>
+        <Footer /> {/* Include the Footer component here */}
       </body>
-      </html>
+    </html>
   );
 }

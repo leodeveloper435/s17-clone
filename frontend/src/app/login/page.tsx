@@ -7,6 +7,7 @@ import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
 import { loginUser } from "@/services/userServices";
+import { toast } from "sonner";
 
 const Login: React.FC = () => {
   const { formState, setState } = useFormState({ email: "", password: "" });
@@ -18,8 +19,10 @@ const Login: React.FC = () => {
     const response = await fetchData({ body: formState });
 
     if (response) {
-      response.ok ? alert("Usuario correcto") : alert("Usuario incorrecto");
-    } else alert("Ocurrio un error");
+      response.ok
+        ? toast.success("Usuario correcto")
+        : toast.error("Usuario incorrecto");
+    } else toast.error("Ocurrio un error");
 
     console.log("Login", response?.data);
   };
