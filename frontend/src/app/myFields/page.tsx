@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-const myFields = () => {
+const MyFields = () => {
   const router = useRouter();
   return (
     <div>
@@ -13,4 +13,4 @@ const myFields = () => {
   );
 };
 
-export default myFields;
+export default MyFields;
