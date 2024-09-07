@@ -6,6 +6,7 @@ import "./globals.css";
 import Footer from "./common/Footer";
 import Header from "@/app/common/Header";
 import { Toaster } from "sonner";
+import { Loader } from "@/components/Loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Loader />
         <Toaster richColors />
         <Header />
         <main>{children}</main>
