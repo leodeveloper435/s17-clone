@@ -1,16 +1,7 @@
+import { FuntionProps, QueryProps } from "@/types/generalTypes";
 import api from "./api";
 
-interface queryProps {
-  [key: string]: string;
-}
-
-interface FuntionProps<T> {
-  url?: string;
-  querys?: queryProps;
-  body?: T;
-}
-
-const createQuerys = (query: queryProps) => {
+const createQuerys = (query: QueryProps) => {
   let querys = "";
   for (let key in query) {
     if (querys.length) querys += "&";
@@ -20,4 +11,4 @@ const createQuerys = (query: queryProps) => {
 };
 
 export const getWeatherForecast = async <T>({ querys }: FuntionProps<T>) =>
-  await api.get(`/clima/forescast?${createQuerys(querys as queryProps)}`);
+  await api.get(`/clima/forescast?${createQuerys(querys as QueryProps)}`);

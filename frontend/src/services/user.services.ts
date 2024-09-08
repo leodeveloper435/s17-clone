@@ -1,10 +1,5 @@
+import { FuntionProps } from "@/types/generalTypes";
 import api from "./api";
-
-// ejemplo
-interface FuntionProps<T> {
-  url?: string;
-  body?: T;
-}
 
 export const registerUser = <T>({ body }: FuntionProps<T>) =>
   api.post("/auth/register", body);

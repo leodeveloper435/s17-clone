@@ -1,17 +1,8 @@
 import { useLoaderStore } from "@/context/loader.store";
+import { FuntionProps } from "@/types/generalTypes";
 import { AxiosResponse } from "axios";
 
 type EndPoint = <T>(data: FuntionProps<T>) => Promise<AxiosResponse<any, any>>;
-
-interface queryProps {
-  [key: string]: string;
-}
-
-interface FuntionProps<T> {
-  url?: string;
-  querys?: queryProps;
-  body?: T;
-}
 
 const useFetchData = () => {
   const { showLoader, hideLoader } = useLoaderStore((state) => state);
