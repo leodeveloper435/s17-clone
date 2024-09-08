@@ -6,13 +6,13 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { registerUser } from "@/services/userServices";
+import { registerUser } from "@/services/user.services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
-  const { fetchData } = useFetchData(registerUser);
-  const { formState, setState } = useFormState({
+  const { fetchData } = useFetchData();
+  const { formState, setFormState } = useFormState({
     firstName: "",
     lastName: "",
     email: "",
@@ -22,7 +22,7 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetchData({ body: formState });
+    const response = await fetchData(registerUser, { body: formState });
     console.log(response);
 
     response.ok
@@ -64,7 +64,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Nombre "
                 value={formState.firstName}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -79,7 +79,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="lastName"
                 value={formState.lastName}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email"
                 value={formState.email}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
 
@@ -112,7 +112,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={formState.password}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
           </div>

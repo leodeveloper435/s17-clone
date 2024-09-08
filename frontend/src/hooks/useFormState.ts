@@ -6,15 +6,17 @@ import { useState } from "react";
 //  y devuelve el estado junto con una función para actualizar dicho estado.
 
 const useFormState = <T>(initialState: T) => {
-  const [formState, setFormState] = useState(initialState);
+  const [form, setForm] = useState(initialState);
 
-  const setState = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const setFormState = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     let { name, value } = e.target;
 
-    setFormState((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { formState, setState };
+  return { formState: form, setFormState };
 };
 
 export default useFormState;

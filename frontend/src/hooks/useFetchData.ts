@@ -3,17 +3,20 @@ import { AxiosResponse } from "axios";
 
 type EndPoint = <T>(data: FuntionProps<T>) => Promise<AxiosResponse<any, any>>;
 
+interface queryProps {
+  [key: string]: string;
+}
+
 interface FuntionProps<T> {
   url?: string;
+  querys?: queryProps;
   body?: T;
 }
 
-const useFetchData = (endPoint: EndPoint) => {
+const useFetchData = () => {
+  const { showLoader, hideLoader } = useLoaderStore((state) => state);
 
-  const showLoader = useLoaderStore((state) => state.showLoader);
-  const hideLoader = useLoaderStore((state) => state.hideLoader);
-
-  const fetchData = async <T>(data: FuntionProps<T>) => {
+  const fetchData = async <T>(endPoint: EndPoint, data: FuntionProps<T>) => {
     console.log("se llamo al hook");
 
     showLoader();
@@ -23,7 +26,7 @@ const useFetchData = (endPoint: EndPoint) => {
     } catch (error) {
       return { ok: false, error: error };
     } finally {
-      hideLoader()
+      hideLoader();
     }
   };
 

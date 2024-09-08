@@ -14,6 +14,6 @@ router.route("/").get(getCampos).post(createCampo).delete(deleteAllCampos);
 
 router.route("/:id").get(getCampoById).patch(updateCampo).delete(deleteCampo);
 
-router.route("/user/:id").get(getAllCamposByUserId);
+router.route("/user/:userId").get(getAllCamposByUserId);
 
 export default router;

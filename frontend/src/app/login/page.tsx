@@ -6,28 +6,35 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { loginUser } from "@/services/userServices";
+import { loginUser } from "@/services/user.services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
+import { getAllCamposByUserId } from "@/services/campo.services";
 
 const Login: React.FC = () => {
-  const { formState, setState } = useFormState({ email: "", password: "" });
-  const { fetchData } = useFetchData(loginUser);
-  const setUser = userStore((data) => data.setUser);
+  const { formState, setFormState } = useFormState({ email: "", password: "" });
+  const { fetchData } = useFetchData();
+  const { setUser, setFields } = userStore((data) => data);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetchData({ body: formState });
+    const { ok, data } = await fetchData(loginUser, { body: formState });
 
-    if (response.ok) {
+    if (ok) {
       toast.success("Usuario correcto");
-      setUser(response.data);
+      setUser(data);
       router.push("home");
-    } else toast.error("Usuario incorrecto");
 
-    console.log("Login", response?.data);
+      const getFields = await fetchData(getAllCamposByUserId, {
+        url: data.user.id,
+      });
+
+      getFields.ok
+        ? setFields(getFields.data.campos)
+        : console.error("No se pudieron traer los campos");
+    } else toast.error("Usuario incorrecto");
   };
 
   return (
@@ -64,7 +71,7 @@ const Login: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Usuario"
                 value={formState.email}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -80,7 +87,7 @@ const Login: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={formState.password}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
           </div>
