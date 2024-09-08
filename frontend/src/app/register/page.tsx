@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
-  const { fetchData } = useFetchData(registerUser);
+  const { fetchData } = useFetchData();
   const { formState, setState } = useFormState({
     firstName: "",
     lastName: "",
@@ -22,7 +22,7 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetchData({ body: formState });
+    const response = await fetchData(registerUser, { body: formState });
     console.log(response);
 
     response.ok

@@ -8,12 +8,11 @@ interface FuntionProps<T> {
   body?: T;
 }
 
-const useFetchData = (endPoint: EndPoint) => {
-
+const useFetchData = () => {
   const showLoader = useLoaderStore((state) => state.showLoader);
   const hideLoader = useLoaderStore((state) => state.hideLoader);
 
-  const fetchData = async <T>(data: FuntionProps<T>) => {
+  const fetchData = async <T>(endPoint: EndPoint, data: FuntionProps<T>) => {
     console.log("se llamo al hook");
 
     showLoader();
@@ -23,7 +22,7 @@ const useFetchData = (endPoint: EndPoint) => {
     } catch (error) {
       return { ok: false, error: error };
     } finally {
-      hideLoader()
+      hideLoader();
     }
   };
 

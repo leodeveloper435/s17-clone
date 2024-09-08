@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_URL_BASE || "http://localhost:3000/api/v0", // url que viene del .env o el local
+  baseURL: process.env.NEXT_PUBLIC_URL_BASE || "http://localhost:3001/api/v0", // url que viene del .env o el local
   headers: {
     "Content-Type": "application/json",
   },

@@ -10,24 +10,31 @@ import { loginUser } from "@/services/userServices";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
+import { getAllCamposByUserId } from "@/services/campo.service";
 
 const Login: React.FC = () => {
   const { formState, setState } = useFormState({ email: "", password: "" });
-  const { fetchData } = useFetchData(loginUser);
-  const setUser = userStore((data) => data.setUser);
+  const { fetchData } = useFetchData();
+  const { setUser, setFields } = userStore((data) => data);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetchData({ body: formState });
+    const { ok, data } = await fetchData(loginUser, { body: formState });
 
-    if (response.ok) {
+    if (ok) {
       toast.success("Usuario correcto");
-      setUser(response.data);
+      setUser(data);
       router.push("home");
-    } else toast.error("Usuario incorrecto");
 
-    console.log("Login", response?.data);
+      const getFields = await fetchData(getAllCamposByUserId, {
+        url: data.user.id,
+      });
+
+      getFields.ok
+        ? setFields(getFields.data.campos)
+        : console.error("No se pudieron traer los campos");
+    } else toast.error("Usuario incorrecto");
   };
 
   return (
