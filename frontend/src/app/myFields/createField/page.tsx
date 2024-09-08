@@ -10,8 +10,8 @@ import { findInputErrors, getFieldFormRules } from "@/utils/validationRules";
 import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
 import { convertStringToNumber } from "@/utils/conversions";
 
-const NewField: React.FC = () => {
-  const { formState, setState } = useFormState({
+const CreateField: React.FC = () => {
+  const { formState, setFormState } = useFormState({
     name: "",
     latitude: "",
     longitude: "",
@@ -85,7 +85,7 @@ const NewField: React.FC = () => {
               name={field.name}
               value={formState[field.name as keyof typeof formState]}
               type={"text"}
-              handleChange={setState}
+              handleChange={setFormState}
             />
             <ErrorMessage
               validationRules={
@@ -103,7 +103,7 @@ const NewField: React.FC = () => {
           <Select
             key={index}
             name={field.name}
-            handleChange={setState}
+            handleChange={setFormState}
             value={formState[field.name as keyof typeof formState]}
             options={field.options}
           />
@@ -117,4 +117,4 @@ const NewField: React.FC = () => {
   );
 };
 
-export default NewField;
+export default CreateField;

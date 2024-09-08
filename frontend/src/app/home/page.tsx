@@ -215,9 +215,9 @@ const WeatherDashboard: FC = () => {
             </div>
           </div>
         </div>
-        <div className="text-black">
+        <div className="text-red-700 ">
           <h1>Mi estado local:</h1>
-          <pre className="text-wrap">
+          <pre className="text-wrap overflow-hidden">
             {JSON.stringify({ ...user, fields }, null, 2) || "sin informacion"}
           </pre>
         </div>

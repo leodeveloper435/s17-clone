@@ -13,7 +13,7 @@ import { userStore } from "@/context/zustand";
 import { getAllCamposByUserId } from "@/services/campo.service";
 
 const Login: React.FC = () => {
-  const { formState, setState } = useFormState({ email: "", password: "" });
+  const { formState, setFormState } = useFormState({ email: "", password: "" });
   const { fetchData } = useFetchData();
   const { setUser, setFields } = userStore((data) => data);
   const router = useRouter();
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Usuario"
                 value={formState.email}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={formState.password}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
           </div>

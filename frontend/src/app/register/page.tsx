@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
   const { fetchData } = useFetchData();
-  const { formState, setState } = useFormState({
+  const { formState, setFormState } = useFormState({
     firstName: "",
     lastName: "",
     email: "",
@@ -64,7 +64,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Nombre "
                 value={formState.firstName}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -79,7 +79,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="lastName"
                 value={formState.lastName}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email"
                 value={formState.email}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
 
@@ -112,7 +112,7 @@ const Register: React.FC = () => {
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={formState.password}
-                onChange={setState}
+                onChange={setFormState}
               />
             </div>
           </div>
