@@ -7,26 +7,34 @@ import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
-// Sample city data
-const cities = [
-  { id: 1, name: "Córdoba, Argentina" },
-  { id: 2, name: "Buenos Aires, Argentina" },
-  { id: 3, name: "Rosario, Argentina" },
-  { id: 4, name: "Mendoza, Argentina" },
-  { id: 5, name: "Salta, Argentina" },
+interface WeatherForecast {
+  climaActual: {
+    iconoClimaActual: string;
+    temperaturaActual: number;
+  },
+  prediccionDias: any[];
+}
+
+// Sample location data
+const locations = [
+  { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833" },
+  { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816" },
+  { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393" },
+  { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167" },
+  { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167" },
 ];
 
 const WeatherDashboard: FC = () => {
-  const [selectedCity, setSelectedCity] = useState(cities[0]);
+  const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [weatherForescast, setWeatherForescast] = useState({});
+  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>({} as WeatherForecast);
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, fields } = userStore((data) => data);
   const { fetchData } = useFetchData();
 
-  const filteredCities = cities.filter((city) =>
-    city.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredLocations = locations.filter((location) =>
+    location.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getForescast = async (lat: string, lon: string) => {
@@ -37,6 +45,8 @@ const WeatherDashboard: FC = () => {
     ok
       ? setWeatherForescast(data)
       : toast.error("No se puedo traer la prediccion del clima");
+
+    console.log(weatherForescast);
   };
 
   useEffect(() => {
@@ -49,13 +59,13 @@ const WeatherDashboard: FC = () => {
       }
     };
 
-    getForescast("42.2406", "8.7207"); // aqui deberia ir la ubi del user o el campo
+    getForescast(selectedLocation.lat, selectedLocation.lon); // aqui deberia ir la ubi del user o el campo
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [selectedLocation]);
 
   return (
     <div className="min-h-screen bg-pink-50 p-8">
@@ -71,7 +81,7 @@ const WeatherDashboard: FC = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="bg-white border border-gray-300 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
           >
-            {selectedCity.name}
+            {selectedLocation.name}
             {isOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,17 +120,17 @@ const WeatherDashboard: FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <div className="max-h-60 overflow-y-auto">
-                {filteredCities.map((city) => (
+                {filteredLocations.map((location) => (
                   <div
-                    key={city.id}
+                    key={location.id}
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
-                      setSelectedCity(city);
+                      setSelectedLocation(location);
                       setIsOpen(false);
                       setSearchTerm("");
                     }}
                   >
-                    {city.name}
+                    {location.name}
                   </div>
                 ))}
               </div>
@@ -128,16 +138,27 @@ const WeatherDashboard: FC = () => {
           )}
         </div>
 
-        {/* Weather card for selected city */}
+        {/* Weather card for selected location */}
         <div className="grid grid-cols-8 gap-4">
           <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800">
             <div className="flex flex-col items-center mb-2 gap-4">
-              <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div>
-              <div className="text-4xl font-bold">23.5°C</div>
-              <div>{selectedCity.name}</div>
-              <div>Lunes, 9:30 AM</div>
-              <div>Martes 13, Junio</div>
-              <div>Nublado</div>
+              {/* <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div> */}
+              <Image  src={ `https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`} alt="clima actual" width={100} height={100} />
+              <div className="text-4xl font-bold">{weatherForescast?.climaActual?.temperaturaActual}°C</div>
+              <div className="text-center">{selectedLocation.name}</div>
+              <div className="border-b-2 border-gray-200 pb-4 text-center">
+                {new Intl.DateTimeFormat("es-AR", {
+                  weekday: "long",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }).format(new Date())}
+              </div>
+              <div className="text-center">{new Intl.DateTimeFormat("es-AR", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+              }).format(new Date(Date.now() + 1000 * 60 * 60 * 24))}</div>
+              <div className="text-center">{weatherForescast?.prediccionDias?.[1]?.clima ?? ""}</div>
             </div>
           </div>
 
@@ -231,13 +252,6 @@ const WeatherDashboard: FC = () => {
               Se recomiendan riegos moderados
             </div>
           </div>
-        </div>
-        <div className="text-red-700 ">
-          <h1>Mi estado local:</h1>
-          <pre className="text-wrap overflow-hidden">
-            {/* {JSON.stringify({ ...user, fields }, null, 2) || "sin informacion"} */}
-            {JSON.stringify(weatherForescast, null, 2) || "sin informacion"}
-          </pre>
         </div>
       </main>
     </div>
