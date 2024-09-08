@@ -9,8 +9,16 @@ import { ErrorMessage } from "@/components/form/ErrorMessage";
 import { findInputErrors, getFieldFormRules } from "@/utils/validationRules";
 import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
 import { convertStringToNumber } from "@/utils/conversions";
+import useFetchData from "@/hooks/useFetchData";
+import { createCampo } from "@/services/campo.services";
+import { toast } from "sonner";
+import { userStore } from "@/context/zustand";
+import { useRouter } from "next/navigation";
 
 const CreateField: React.FC = () => {
+  const { fetchData } = useFetchData();
+  const { user, addField } = userStore((data) => data);
+  const router = useRouter();
   const { formState, setFormState } = useFormState({
     name: "",
     latitude: "",
@@ -42,7 +50,7 @@ const CreateField: React.FC = () => {
     setShowInputErrors(false);
 
     const newField = {
-      userId: 1,
+      userId: user?.user.id,
       name: formState.name,
       latitude: convertStringToNumber(formState.latitude),
       longitude: convertStringToNumber(formState.longitude),
@@ -54,7 +62,15 @@ const CreateField: React.FC = () => {
       season: formState.season,
     };
 
-    console.log(newField);
+    const { ok, data } = await fetchData(createCampo, { body: newField });
+
+    ok
+      ? (toast.success("Se creo el campo correctamente!!"),
+        addField(data),
+        router.push("/myFields"))
+      : toast.error("No se pudo crear el campo!!");
+
+    console.log(data);
   };
 
   return (

@@ -6,11 +6,11 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { loginUser } from "@/services/userServices";
+import { loginUser } from "@/services/user.services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
-import { getAllCamposByUserId } from "@/services/campo.service";
+import { getAllCamposByUserId } from "@/services/campo.services";
 
 const Login: React.FC = () => {
   const { formState, setFormState } = useFormState({ email: "", password: "" });

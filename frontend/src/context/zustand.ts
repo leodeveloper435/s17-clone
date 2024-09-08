@@ -2,16 +2,31 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface userTypes {
-  name: string;
-  lastName: string;
+  user: { id: string };
   token: string;
+}
+interface Campo {
+  id: number;
+  userId: number;
+  name: string;
+  latitude: string;
+  longitude: string;
+  size: number;
+  workersAmount: number;
+  mainCrop: string;
+  weatherType: string;
+  administration: string;
+  season: string;
+  updatedAt: string; // ISO date format
+  createdAt: string; // ISO date format
 }
 
 interface userStoreProps {
   user: userTypes | null;
-  fields: any[];
+  fields: Campo[];
   setUser: (user: userTypes) => void;
-  setFields: (fiels: any[]) => void;
+  setFields: (fiels: Campo[]) => void;
+  addField: (fiel: Campo) => void;
 }
 
 export const userStore = create<userStoreProps>()(
@@ -21,6 +36,8 @@ export const userStore = create<userStoreProps>()(
       fields: [],
       setUser: (newUser) => set(() => ({ user: newUser })),
       setFields: (newFields) => set(() => ({ fields: newFields })),
+      addField: (newField) =>
+        set((state) => ({ fields: [...state.fields, newField] })),
     }),
     { name: "userStore" }
   )
