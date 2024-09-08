@@ -1,8 +1,11 @@
 "use client";
 import { userStore } from "@/context/zustand";
+import useFetchData from "@/hooks/useFetchData";
+import { getWeatherForecast } from "@/services/clima.services";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 
 // Sample city data
 const cities = [
@@ -16,13 +19,25 @@ const cities = [
 const WeatherDashboard: FC = () => {
   const [selectedCity, setSelectedCity] = useState(cities[0]);
   const [isOpen, setIsOpen] = useState(false);
+  const [weatherForescast, setWeatherForescast] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user, fields } = userStore((user) => user);
+  const { user, fields } = userStore((data) => data);
+  const { fetchData } = useFetchData();
 
   const filteredCities = cities.filter((city) =>
     city.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const getForescast = async (lat: string, lon: string) => {
+    const { ok, data } = await fetchData(getWeatherForecast, {
+      querys: { lat, lon },
+    });
+
+    ok
+      ? setWeatherForescast(data)
+      : toast.error("No se puedo traer la prediccion del clima");
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,6 +48,8 @@ const WeatherDashboard: FC = () => {
         setIsOpen(false);
       }
     };
+
+    getForescast("42.2406", "8.7207"); // aqui deberia ir la ubi del user o el campo
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -218,7 +235,8 @@ const WeatherDashboard: FC = () => {
         <div className="text-red-700 ">
           <h1>Mi estado local:</h1>
           <pre className="text-wrap overflow-hidden">
-            {JSON.stringify({ ...user, fields }, null, 2) || "sin informacion"}
+            {/* {JSON.stringify({ ...user, fields }, null, 2) || "sin informacion"} */}
+            {JSON.stringify(weatherForescast, null, 2) || "sin informacion"}
           </pre>
         </div>
       </main>

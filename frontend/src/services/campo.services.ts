@@ -1,7 +1,12 @@
 import api from "./api";
 
+interface queryProps {
+  [key: string]: string;
+}
+
 interface FuntionProps<T> {
   url?: string;
+  query?: queryProps;
   body?: T;
 }
 
