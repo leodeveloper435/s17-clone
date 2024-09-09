@@ -9,6 +9,7 @@ import useFetchData from "@/hooks/useFetchData";
 import { registerUser } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Register: React.FC = () => {
   const { fetchData } = useFetchData();
@@ -32,26 +33,31 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-loginBg bg-cover bg-no-repeat  py-2 px-4 sm:px-6 lg:px-8">
       <Head>
         <title>Register</title>
         <meta name="description" content="Register page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-lg w-full space-y-8 z-20 bg-white p-10 rounded-lg">
         <div className="flex justify-center">
-          <div className="w-1/2 h-0 p-20 bg-slate-300 rounded shadow-md "></div>
+          <Image
+            alt="Logo AgroSmart"
+            src={"/AgroSmart.png"}
+            width={250}
+            height={250}
+          ></Image>
         </div>
 
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">
             Registrarse
           </h2>
         </div>
         <form className="mt-8 space-y-8" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm space-y-8">
+          <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="firstName" className="sr-only">
                 Nombre
@@ -61,7 +67,7 @@ const Register: React.FC = () => {
                 name="firstName"
                 type="text"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-seconday-green focus:border-seconday-green focus:z-10 sm:text-sm"
                 placeholder="Nombre "
                 value={formState.firstName}
                 onChange={setFormState}
@@ -76,7 +82,7 @@ const Register: React.FC = () => {
                 name="lastName"
                 type="text"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-seconday-green focus:border-seconday-green focus:z-10 sm:text-sm"
                 placeholder="lastName"
                 value={formState.lastName}
                 onChange={setFormState}
@@ -92,7 +98,7 @@ const Register: React.FC = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-seconday-green focus:border-seconday-green focus:z-10 sm:text-sm"
                 placeholder="Email"
                 value={formState.email}
                 onChange={setFormState}
@@ -109,7 +115,7 @@ const Register: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-seconday-green focus:border-seconday-green focus:z-10 sm:text-sm"
                 placeholder="Contraseña"
                 value={formState.password}
                 onChange={setFormState}
@@ -118,7 +124,7 @@ const Register: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-seconday-green transition-colors"
           >
             Registrarse
           </button>
@@ -134,14 +140,14 @@ const Register: React.FC = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                className="h-4 w-4 text-indigo-600 focus:ring-seconday-green border-gray-300 rounded"
               />
             </div>
 
             <div className="text-sm">
               <Link
                 href="login"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-primary-green hover:text-seconday-green"
               >
                 ¿Ya tienes una cuenta? Inicia Sesión
               </Link>
@@ -151,6 +157,7 @@ const Register: React.FC = () => {
           <div></div>
         </form>
       </div>
+      <div className="bg-black absolute inset-0 opacity-40 z-0"></div>
     </div>
   );
 };

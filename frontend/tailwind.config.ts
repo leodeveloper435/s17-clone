@@ -8,7 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "primary-green": "#235C2A",
+        "seconday-green": "#86B762",
+      },
       backgroundImage: {
+        loginBg: "url('/loginAndRegisterBG.jpeg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
