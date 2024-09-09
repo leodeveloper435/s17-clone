@@ -1,7 +1,7 @@
 "use client";
 import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
-import { getWeatherForecast } from "@/services/clima.services";
+import { getWeatherForecast } from "@/services";
 import { icons } from "@/utils/getIcons";
 import Head from "next/head";
 import Image from "next/image";

@@ -6,7 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import useFormState from "@/hooks/useFormState";
 import useFetchData from "@/hooks/useFetchData";
-import { registerUser } from "@/services/user.services";
+import { registerUser } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
