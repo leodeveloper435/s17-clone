@@ -10,14 +10,14 @@ const useFetchData = () => {
   const fetchData = async <T>(endPoint: EndPoint, data: FuntionProps<T>) => {
     console.log("se llamo al hook");
 
-    showLoader();
+    // showLoader();
     try {
       const result = await endPoint(data);
       return { ok: true, data: result.data };
     } catch (error) {
       return { ok: false, error: error };
     } finally {
-      hideLoader();
+      // hideLoader();
     }
   };
 

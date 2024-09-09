@@ -9,16 +9,16 @@ const Market = () => {
   const { fetchData } = useFetchData();
   const [merketData, SetMarketData] = useState({});
 
-  const getMarketData = async () => {
-    const { ok, data } = await fetchData(getMarketGrainPrices, {});
-    ok
-      ? SetMarketData(data)
-      : toast.error("no se pudo traer la infromacion del mercado");
-  };
-
   useEffect(() => {
+    const getMarketData = async () => {
+      const { ok, data } = await fetchData(getMarketGrainPrices, {});
+      ok
+        ? SetMarketData(data)
+        : toast.error("no se pudo traer la infromacion del mercado");
+    };
+
     getMarketData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-[calc(100vh-95px)]">
