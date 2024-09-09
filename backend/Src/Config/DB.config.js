@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -12,12 +14,14 @@ export const sequelize = new Sequelize(
     dialect: "postgres",
     port: process.env.DB_PORT || 5432,
     logging: false,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    dialectOptions: isProduction
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        }
+      : {}, 
   }
 );
 
@@ -27,7 +31,7 @@ sequelize
     console.log("Conexión a la base de datos exitosa.");
   })
   .catch((err) => {
-    console.error("No se pudo conectar a la base de datos:");
+    console.error("No se pudo conectar a la base de datos:", err);
   });
 
 sequelize
