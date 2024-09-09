@@ -26,3 +26,7 @@ export const getAllCamposByUserId = async <T>({ url }: FuntionProps<T>) =>
 
 export const createCampo = async <T>({ body }: FuntionProps<T>) =>
   await api.post("/campo", body);
+
+// Market services
+
+export const getMarketGrainPrices = async () => await api.get("/market");
