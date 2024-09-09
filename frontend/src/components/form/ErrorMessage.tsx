@@ -1,8 +1,4 @@
-interface ValidationRuleI {
-  field: string;
-  condition: boolean;
-  message: string;
-}
+import { ValidationRuleI } from "@/types/generalTypes";
 
 type Props = {
   validationRules?: ValidationRuleI[];

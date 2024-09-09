@@ -10,7 +10,7 @@ import { findInputErrors, getFieldFormRules } from "@/utils/validationRules";
 import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
 import { convertStringToNumber } from "@/utils/conversions";
 import useFetchData from "@/hooks/useFetchData";
-import { createCampo } from "@/services/campo.services";
+import { createCampo } from "@/services";
 import { toast } from "sonner";
 import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";

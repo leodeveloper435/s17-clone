@@ -1,7 +1,8 @@
 "use client";
 import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
-import { getWeatherForecast } from "@/services/clima.services";
+import { getWeatherForecast } from "@/services";
+import { icons } from "@/utils/getIcons";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
@@ -11,7 +12,7 @@ interface WeatherForecast {
   climaActual: {
     iconoClimaActual: string;
     temperaturaActual: number;
-  },
+  };
   prediccionDias: any[];
 }
 
@@ -27,7 +28,9 @@ const locations = [
 const WeatherDashboard: FC = () => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>({} as WeatherForecast);
+  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
+    {} as WeatherForecast
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, fields } = userStore((data) => data);
@@ -79,36 +82,10 @@ const WeatherDashboard: FC = () => {
         <div className="mb-4 relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="bg-white border border-gray-300 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
+            className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
           >
             {selectedLocation.name}
-            {isOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
+            {isOpen ? icons.prueba : icons.prueba2}
           </button>
           {isOpen && (
             <div className="absolute mt-2 w-64 bg-white text-gray-700 border border-gray-300 rounded-md shadow-lg z-10">
@@ -143,8 +120,15 @@ const WeatherDashboard: FC = () => {
           <div className="col-span-2 row-span-3 bg-green-300 rounded-lg p-4 text-gray-800">
             <div className="flex flex-col items-center mb-2 gap-4">
               {/* <div className="w-24 h-24 bg-yellow-300 rounded-full mr-2"></div> */}
-              <Image  src={ `https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`} alt="clima actual" width={100} height={100} />
-              <div className="text-4xl font-bold">{weatherForescast?.climaActual?.temperaturaActual}°C</div>
+              <Image
+                src={`https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`}
+                alt="clima actual"
+                width={100}
+                height={100}
+              />
+              <div className="text-4xl font-bold">
+                {weatherForescast?.climaActual?.temperaturaActual}°C
+              </div>
               <div className="text-center">{selectedLocation.name}</div>
               <div className="border-b-2 border-gray-200 pb-4 text-center">
                 {new Intl.DateTimeFormat("es-AR", {
@@ -153,12 +137,16 @@ const WeatherDashboard: FC = () => {
                   minute: "2-digit",
                 }).format(new Date())}
               </div>
-              <div className="text-center">{new Intl.DateTimeFormat("es-AR", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-              }).format(new Date(Date.now() + 1000 * 60 * 60 * 24))}</div>
-              <div className="text-center">{weatherForescast?.prediccionDias?.[1]?.clima ?? ""}</div>
+              <div className="text-center">
+                {new Intl.DateTimeFormat("es-AR", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                }).format(new Date(Date.now() + 1000 * 60 * 60 * 24))}
+              </div>
+              <div className="text-center">
+                {weatherForescast?.prediccionDias?.[1]?.clima ?? ""}
+              </div>
             </div>
           </div>
 
