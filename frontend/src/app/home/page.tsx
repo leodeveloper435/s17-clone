@@ -2,7 +2,7 @@
 import { userStore } from "@/context/zustand";
 import useFetchData from "@/hooks/useFetchData";
 import { getWeatherForecast } from "@/services/clima.services";
-import getIcons from "@/utils/getIcons";
+import { icons } from "@/utils/getIcons";
 import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
@@ -82,10 +82,10 @@ const WeatherDashboard: FC = () => {
         <div className="mb-4 relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="bg-white border border-gray-300 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
+            className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 flex items-center justify-between"
           >
             {selectedLocation.name}
-            {isOpen ? getIcons("prueba") : getIcons("prueba2")}
+            {isOpen ? icons.prueba : icons.prueba2}
           </button>
           {isOpen && (
             <div className="absolute mt-2 w-64 bg-white text-gray-700 border border-gray-300 rounded-md shadow-lg z-10">

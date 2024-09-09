@@ -2,7 +2,7 @@ interface IconsProps {
   [key: string]: JSX.Element;
 }
 
-const icons: IconsProps = {
+export const icons: IconsProps = {
   prueba: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -32,9 +32,3 @@ const icons: IconsProps = {
     </svg>
   ),
 };
-
-const getIcons = (IconName: string) => {
-  return icons[IconName] || <span>No se encontro el icono</span>;
-};
-
-export default getIcons;
