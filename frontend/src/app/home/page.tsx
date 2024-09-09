@@ -11,12 +11,12 @@ import { toast } from "sonner";
 interface WeatherForecast {
   pronosticoPorHoras: any;
   climaActual: {
-    amanecer: ReactNode;
-    atardecer: ReactNode;
-    faseLunar: ReactNode;
-    temperaturaMaxima: ReactNode;
-    temperaturaMinima: ReactNode;
-    humedad: ReactNode;
+    amanecer: string;
+    atardecer: string;
+    faseLunar: number;
+    temperaturaMaxima: number;
+    temperaturaMinima: number;
+    humedad: number;
     viento: any;
     iconoClimaActual: string;
     temperaturaActual: number;
