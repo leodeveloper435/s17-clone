@@ -2,11 +2,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 interface TypeProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
-  const Wrapper = (props: TypeProps) => {
+  const Wrapper = (props: any) => {
     const router = useRouter();
     const isAuthenticated = JSON.parse(localStorage.getItem("userStore") || "");
     console.log(isAuthenticated);
@@ -14,10 +14,10 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       if (!isAuthenticated?.state.user.token) {
         router.push("/login");
       }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, router]);
 
     if (!isAuthenticated?.state.user.token) {
-      return <h1>"Cargando"</h1>;
+      return <h1>Cargando</h1>;
     }
 
     return <WrappedComponent {...props} />;
