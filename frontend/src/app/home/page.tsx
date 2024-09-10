@@ -10,7 +10,15 @@ import { toast } from "sonner";
 import withAuth from "../auth/withAuth";
 
 interface WeatherForecast {
+  pronosticoPorHoras: any;
   climaActual: {
+    amanecer: string;
+    atardecer: string;
+    faseLunar: number;
+    temperaturaMaxima: number;
+    temperaturaMinima: number;
+    humedad: number;
+    viento: any;
     iconoClimaActual: string;
     temperaturaActual: number;
   };
@@ -154,19 +162,15 @@ const WeatherDashboard: FC = () => {
           {/* Weekly forecast */}
           <div className="col-span-6 bg-gray-800 rounded-lg p-4 text-white">
             <div className="flex justify-between">
-              {[
-                "Lunes",
-                "Martes",
-                "Miércoles",
-                "Jueves",
-                "Viernes",
-                "Sábado",
-                "Domingo",
-              ].map((day) => (
+              {Array.from({ length: 7 }, (_, i) =>
+                new Intl.DateTimeFormat("es-AR", { weekday: "long" }).format(
+                  new Date(Date.now() + 1000 * 60 * 60 * 24 * i)
+                )
+              ).map((day, index) => (
                 <div key={day} className="text-center">
                   <div>{day}</div>
-                  <div className="w-8 h-8 bg-yellow-300 rounded-full mx-auto my-2"></div>
-                  <div>22° 17°</div>
+                  <Image src={`https://openweathermap.org/img/wn/${weatherForescast?.prediccionDias?.[index]?.icono}.png`} alt="clima" width={50} height={50} />
+                  <div>{weatherForescast?.prediccionDias?.[index]?.temperaturaMaxima ?? "" }°C - {weatherForescast?.prediccionDias?.[index]?.temperaturaMinima ?? "" }°C</div>
                 </div>
               ))}
             </div>
@@ -183,12 +187,12 @@ const WeatherDashboard: FC = () => {
                   height={50}
                 />
                 <div>Amanecer</div>
-                <div>06:30</div>
+                <div>{weatherForescast?.climaActual?.amanecer}</div>
               </div>
               <div>
                 <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
                 <div>Atardecer</div>
-                <div>18:30</div>
+                <div>{weatherForescast?.climaActual?.atardecer}</div>
               </div>
             </div>
           </div>
@@ -203,19 +207,19 @@ const WeatherDashboard: FC = () => {
           {/* Moon phase */}
           <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
             <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
-            <div>Argentina</div>
+            <div className="text-center">{selectedLocation.name}</div>
             <div>08:30</div>
-            <div>Luna llena</div>
+            <div>Fase lunar: {weatherForescast.climaActual?.faseLunar}</div>
           </div>
 
           {/* Weather details */}
           <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
             <div className="grid grid-cols-2 gap-4">
-              <div>Temperatura máxima: 19°</div>
-              <div>Temperatura mínima: 15°</div>
-              <div>Humedad: 68%</div>
+              <div>Temperatura máxima: {weatherForescast?.climaActual?.temperaturaMaxima}°</div>
+              <div>Temperatura mínima: {weatherForescast?.climaActual?.temperaturaMinima}°</div>
+              <div>Humedad: {weatherForescast?.climaActual?.humedad}%</div>
               <div>Nubes: 86%</div>
-              <div>Viento: 5km/h</div>
+              <div>Viento: {weatherForescast?.climaActual?.viento.velocidad}km/h</div>
             </div>
           </div>
           {/* Weather infographics */}
@@ -226,11 +230,11 @@ const WeatherDashboard: FC = () => {
           {/* Hourly forecast */}
           <div className="col-span-3 bg-gray-800 rounded-lg p-4 text-white">
             <div className="flex justify-between">
-              {["Now", "10am", "11am", "12pm", "1pm", "2pm"].map((time) => (
-                <div key={time} className="text-center">
-                  <div>{time}</div>
-                  <div className="w-8 h-8 bg-gray-300 rounded-full mx-auto my-2"></div>
-                  <div>18°</div>
+              {Array.from({ length: 6 }, (_, i) => new Date(Date.now() + i * 60 * 60 * 1000)).map((date,i) => (
+                <div key={date.toTimeString()} className="text-center">
+                  <div>{date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                  <Image src={`https://openweathermap.org/img/wn/${weatherForescast?.pronosticoPorHoras?.[i]?.icono}.png`} alt="clima" width={50} height={50} />
+                  <div>{weatherForescast?.pronosticoPorHoras?.[i]?.temperatura.toFixed(1)}°</div>
                 </div>
               ))}
             </div>

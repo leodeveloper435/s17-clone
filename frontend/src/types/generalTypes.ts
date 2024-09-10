@@ -47,11 +47,3 @@ export interface UserStoreProps {
   setFields: (fiels: Campo[]) => void;
   addField: (fiel: Campo) => void;
 }
-
-// validation rules Types
-
-export interface ValidationRuleI {
-  field: string;
-  condition: boolean;
-  message: string;
-}
