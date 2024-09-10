@@ -7,6 +7,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { FC, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+import withAuth from "../auth/withAuth";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -250,4 +251,4 @@ const WeatherDashboard: FC = () => {
   );
 };
 
-export default WeatherDashboard;
+export default withAuth(WeatherDashboard);

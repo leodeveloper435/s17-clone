@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Loader />
         <Toaster richColors />
-        <Header />
+        {/* <Header /> */}
         <main>{children}</main>
         <Footer /> {/* Include the Footer component here */}
         <link
