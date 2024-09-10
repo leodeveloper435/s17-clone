@@ -20,7 +20,6 @@ export const newFieldInputFields = [
     {
         label: "Longitud",
         name: "longitude",
-        type: "text",
     },
     {
         label: "Tamaño (hectáreas)",
