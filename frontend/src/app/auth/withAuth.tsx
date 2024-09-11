@@ -1,5 +1,7 @@
+"use cliente";
+
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface TypeProps {
   children?: React.ReactNode;
@@ -8,20 +10,16 @@ interface TypeProps {
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   const Wrapper = (props: any) => {
     const router = useRouter();
-    const userDataString = localStorage.getItem("userStore");
-    const userDataJson = userDataString ? JSON.parse(userDataString) : null;
+    const [isLogin, setIsLogin] = useState(false);
 
     useEffect(() => {
-      if (!userDataJson?.state.user.token) {
-        router.push("/login");
+      if (typeof window !== "undefined") {
+        const getToken = JSON.parse(localStorage.getItem("userStore") || "{}");
+        getToken?.state?.user.token ? setIsLogin(true) : router.push("/login");
       }
-    }, [userDataJson, router]);
+    }, [router]);
 
-    if (!userDataJson?.state.user.token) {
-      return <h1>Cargando</h1>;
-    }
-
-    return <WrappedComponent {...props} />;
+    return isLogin ? <WrappedComponent {...props} /> : <h1>Cargando</h1>;
   };
 
   return Wrapper;
