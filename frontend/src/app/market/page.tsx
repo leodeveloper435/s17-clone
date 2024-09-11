@@ -7,18 +7,18 @@ import { toast } from "sonner";
 
 const Market = () => {
   const { fetchData } = useFetchData();
-  const [merketData, SetMarketData] = useState({});
+  const [merketData, setMarketData] = useState({});
 
   useEffect(() => {
     const getMarketData = async () => {
       const { ok, data } = await fetchData(getMarketGrainPrices, {});
       ok
-        ? SetMarketData(data)
+        ? setMarketData(data)
         : toast.error("no se pudo traer la infromacion del mercado");
     };
 
     getMarketData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-[calc(100vh-95px)]">

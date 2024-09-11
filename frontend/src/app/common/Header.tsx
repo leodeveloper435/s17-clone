@@ -6,16 +6,13 @@ import { userStore } from "@/context/zustand";
 const Header: React.FC = () => {
   const user = userStore((data) => data.user);
   return (
-    <header className="bg-[#82C16F] p-4 flex justify-between items-center shadow-md">
+    <header className="bg-primary-green p-4 flex justify-between items-center shadow-md">
       {/* Logo */}
-      <div className="flex items-center space-x-4">
-        <Link href="/" className="text-4xl font-bold text-white">
-          <span className="text-[#4B5840]">A</span>
-          <span className="text-[#D2A23A]">gro</span>
-          <span className="text-[#4B5840]">S</span>
-          <span className="text-[#D2A23A]">mart</span>
-        </Link>
-      </div>
+      <img
+        src="/AgroSmart.png"
+        alt="Logo AgroSmart"
+        className="w-[250px] -mb-2"
+      />
 
       {/* Navigation Links */}
       <nav className="flex space-x-6">
@@ -32,7 +29,7 @@ const Header: React.FC = () => {
           Mercado
         </Link>
         <Link
-          href="/forecast"
+          href="/home"
           className="w-[135px] h-[47px] bg-[#F4E2C7] text-gray-800 text-lg text-center flex items-center justify-center rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           Clima
