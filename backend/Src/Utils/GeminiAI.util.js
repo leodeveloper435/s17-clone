@@ -32,8 +32,13 @@ export async function generateAICropRecomendation(recomendationData) {
   Basado en estos datos, por favor proporciona una recomendación corta (máximo una oración) 
   sobre la mejor estrategia para el cultivo y cómo optimizar el rendimiento de la cosecha.`;
 
-  const result = await model.generateContent(prompt);
-  return result.response.text();
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text();
+  } catch (error) {
+    console.error("Error al buscar una recomendación de Gemini", error);
+      throw error;
+  }
 }
 
 export async function generateAICropResponse(questionPrompt) {
@@ -48,7 +53,11 @@ export async function generateAICropResponse(questionPrompt) {
   
   Respuesta:
   `;
-
-  const result = await model.generateContent(prompt);
-  return result.response.text();
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text();
+  } catch (error) {
+    console.error("Error al buscar una respuesta de Gemini", error);
+      throw error;
+  }
 }
