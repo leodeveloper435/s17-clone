@@ -16,6 +16,7 @@ import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
 import { isDecimal, isPositiveInteger } from "@/utils/validators";
 import dynamic from "next/dynamic";
+import withAuth from "@/app/auth/withAuth";
 
 const MapView = dynamic(() => import("../../../components/MapView"), {
   ssr: false,
@@ -170,4 +171,4 @@ const CreateField: React.FC = () => {
   );
 };
 
-export default CreateField;
+export default withAuth(CreateField);
