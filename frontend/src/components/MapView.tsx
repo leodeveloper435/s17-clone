@@ -7,7 +7,7 @@ type Props = {
   longitude: number;
 };
 
-const MapView: React.FC<Props> = React.memo(({ latitude, longitude }) => {
+const MapView: React.FC<Props> = React.memo(function MapView({ latitude, longitude }) {
   const mapRef = useRef<L.Map>(null);
 
   useEffect(() => {
