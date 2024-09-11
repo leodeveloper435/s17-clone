@@ -30,3 +30,4 @@ export const createCampo = async <T>({ body }: FuntionProps<T>) =>
 // Market services
 
 export const getMarketGrainPrices = async () => await api.get("/market");
+export const getExchangeRates = async () => await api.get("/dollar");

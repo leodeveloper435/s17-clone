@@ -1,7 +1,7 @@
 "use client";
 
 import useFetchData from "@/hooks/useFetchData";
-import { getMarketGrainPrices } from "@/services";
+import { getExchangeRates, getMarketGrainPrices } from "@/services";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -10,22 +10,29 @@ import CurrencyExchange from "../../components/market/CurrencyExchange";
 import AgriculturalInputs from "../../components/market/AgriculturalInputs";
 import Header from "../common/Header";
 
-interface CropPricesProps {
-  marketData: string; // Replace 'any' with the actual type of marketData
-}
 const Market = () => {
   const { fetchData } = useFetchData();
   const [marketData, setMarketData] = useState({});
+  const [exchangeRates, setExchangeRates] = useState({});
+
 
   useEffect(() => {
     const getMarketData = async () => {
       const { ok, data } = await fetchData(getMarketGrainPrices, {});
       ok
         ? setMarketData(data)
-        : toast.error("no se pudo traer la infromacion del mercado");
+        : toast.error("no se pudo traer la informacion del mercado");
+    };
+
+    const getMoneyData = async () => {
+      const { ok, data } = await fetchData(getExchangeRates, {});
+      ok
+        ? setExchangeRates(data)
+        : toast.error("no se pudo traer la informacion de tasas de cambio");
     };
 
     getMarketData();
+    getMoneyData();
   }, []);
 
   return (
@@ -43,7 +50,7 @@ const Market = () => {
           </h1>
           <div className="space-y-8 ">
             <CropPrices marketData={marketData} />
-            <CurrencyExchange />
+            <CurrencyExchange exchangeRates={exchangeRates} />
             <AgriculturalInputs />
           </div>
         </main>
