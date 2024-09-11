@@ -4,6 +4,7 @@ import useFetchData from "@/hooks/useFetchData";
 import { getMarketGrainPrices } from "@/services";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import Header from "../common/Header";
 
 const Market = () => {
   const { fetchData } = useFetchData();
@@ -21,10 +22,13 @@ const Market = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-[calc(100vh-95px)]">
-      <h1>Esta es la parte del mercado</h1>
-      <pre>{JSON.stringify(merketData, null, 2)}</pre>
-    </div>
+    <>
+      <Header />
+      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-95px)]">
+        <h1>Esta es la parte del mercado</h1>
+        <pre>{JSON.stringify(merketData, null, 2)}</pre>
+      </div>
+    </>
   );
 };
 

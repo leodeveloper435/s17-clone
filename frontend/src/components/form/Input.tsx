@@ -23,18 +23,16 @@ export const Input = ({ label, name, value, type, handleChange }: Props) => {
                    font-[400]
                    px-[10px]
                    py-[12px]
-                   md:px-[13px]
-                   md:py-[15px]
                    text-[14px]
                    md:text-[16px]
                    placeholder-[#515866]
                    text-[#515866]
                    border
-                   border-[#696A6CB8]
+                   border-gray-300
                    rounded-[5px]
-                   focus:outline-[#696A6CB8]
-                   focus:ring-[#696A6CB8]
-                   focus:border-[#696A6CB8]
+                   focus:outline-seconday-green
+                   focus:ring-seconday-green
+                   focus:border-seconday-green
                    focus:z-10"
         placeholder={label}
         value={value}

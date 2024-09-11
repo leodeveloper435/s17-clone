@@ -22,7 +22,7 @@ const MapView: React.FC<Props> = React.memo(({ latitude, longitude }) => {
 
   if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
     return (
-      <div className="w-full h-[300px] bg-[#575857] flex items-center justify-center">
+      <div className="w-full h-[332px] bg-[#575857] rounded-lg flex items-center justify-center">
         Coordenadas incorrectas
       </div>
     );
@@ -30,7 +30,7 @@ const MapView: React.FC<Props> = React.memo(({ latitude, longitude }) => {
 
   if (!navigator.geolocation) {
     return (
-      <div className="w-full h-[300px] bg-[#575857] flex items-center justify-center">
+      <div className="w-full h-[332px] bg-[#575857] flex items-center justify-center">
         Tu navegador no tiene opción de Geolocation.
       </div>
     );
@@ -38,7 +38,7 @@ const MapView: React.FC<Props> = React.memo(({ latitude, longitude }) => {
 
   return (
     <MapContainer
-      className="h-[300px] w-full rounded"
+      className="h-[332px] w-full rounded-lg"
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}
