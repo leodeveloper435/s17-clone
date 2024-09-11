@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import { SubmitButton } from "@/components/form/SubmitButton";
 import { Input } from "@/components/form/Input";
 import { Select } from "@/components/form/Select";
-import { newFieldInputFields, newFieldSelectFields } from "@/utils/inputFields";
+import {
+  locationInputFields,
+  newFieldInputFields,
+  newFieldSelectFields,
+} from "@/utils/inputFields";
 import useFetchData from "@/hooks/useFetchData";
 import { createCampo } from "@/services";
 import { toast } from "sonner";
@@ -12,6 +16,7 @@ import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
 import { isDecimal, isPositiveInteger } from "@/utils/validators";
 import dynamic from "next/dynamic";
+import withAuth from "@/app/auth/withAuth";
 
 const MapView = dynamic(() => import("../../../components/MapView"), {
   ssr: false,
@@ -98,62 +103,67 @@ const CreateField: React.FC = () => {
       <h3
         className="text-black
                    text-[21px]
-                   md:text-[25px]
+                   md:text-2xl  
                    font-[400]
-                   mt-[42px]"
+                   my-[42px]"
       >
         Agregar Campo
       </h3>
 
       <form
-        className="w-[298px]
+        className="
                    m-auto
-                   mt-[36px]
-                   md:mt-[77px]
                    space-y-3
-                   md:space-y-4"
+                   "
         onSubmit={handleSubmit}
       >
-        {newFieldInputFields.slice(0, 3).map((field, index) => (
-          <div className="relative" key={index + 1}>
-            <Input
-              label={field.label}
-              name={field.name}
-              value={form[field.name as keyof typeof form]}
-              type={"text"}
-              handleChange={handleChange}
-            />
+        <div className="md:flex justify-center md:space-x-4">
+          <div className="space-y-2 mb-8 md:mb-0">
+            {newFieldInputFields.map((field, index) => (
+              <div className="relative" key={index + 1}>
+                <Input
+                  label={field.label}
+                  name={field.name}
+                  value={form[field.name as keyof typeof form]}
+                  type={"text"}
+                  handleChange={handleChange}
+                />
+              </div>
+            ))}
+
+            {newFieldSelectFields.map((field, index) => (
+              <Select
+                key={index}
+                name={field.name}
+                handleChange={handleChange}
+                value={form[field.name as keyof typeof form]}
+                options={field.options}
+              />
+            ))}
           </div>
-        ))}
 
-        <MapView
-          latitude={parseFloat(form.latitude)}
-          longitude={parseFloat(form.longitude)}
-        />
-
-        {newFieldInputFields.slice(3, 5).map((field, index) => (
-          <div className="relative" key={index + 1}>
-            <Input
-              label={field.label}
-              name={field.name}
-              value={form[field.name as keyof typeof form]}
-              type={"text"}
-              handleChange={handleChange}
+          <div>
+            <MapView
+              latitude={parseFloat(form.latitude)}
+              longitude={parseFloat(form.longitude)}
             />
+            <div className="flex mt-5 space-x-2 justify-center">
+              {locationInputFields.map((field, index) => (
+                <div className="relative" key={index + 1}>
+                  <Input
+                    label={field.label}
+                    name={field.name}
+                    value={form[field.name as keyof typeof form]}
+                    type={"text"}
+                    handleChange={handleChange}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
+        </div>
 
-        {newFieldSelectFields.map((field, index) => (
-          <Select
-            key={index}
-            name={field.name}
-            handleChange={handleChange}
-            value={form[field.name as keyof typeof form]}
-            options={field.options}
-          />
-        ))}
-
-        <div className="pt-4">
+        <div className="py-2">
           <SubmitButton value="Agregar" />
         </div>
       </form>
@@ -161,4 +171,4 @@ const CreateField: React.FC = () => {
   );
 };
 
-export default CreateField;
+export default withAuth(CreateField);

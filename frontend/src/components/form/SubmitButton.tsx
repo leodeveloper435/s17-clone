@@ -9,20 +9,16 @@ export const SubmitButton = ({ value }: Props) => {
       className="w-[178px]
                  py-2
                  px-4
-                 border
-                 border-[3px]
-                 border-[#515866]
-                 bg-[#515866]
+                 bg-primary-green
                  text-[16px]
                  font-[500]
-                 rounded-[10px]
+                 rounded-lg
                  text-white
-                 hover:bg-[#A1A4AF]
-                 hover:border-[#A1A4AF]
+                 hover:bg-green-700
                  focus:outline-none
                  focus:ring-2
                  focus:ring-offset-2
-                 focus:ring-indigo-500
+                 focus:ring-primary-green
                  ease-out
                  duration-300"
     >

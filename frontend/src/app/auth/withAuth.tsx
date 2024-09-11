@@ -8,15 +8,16 @@ interface TypeProps {
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   const Wrapper = (props: any) => {
     const router = useRouter();
-    const isAuthenticated = JSON.parse(localStorage.getItem("userStore") || "");
-    console.log(isAuthenticated);
+    const userDataString = localStorage.getItem("userStore");
+    const userDataJson = userDataString ? JSON.parse(userDataString) : null;
+
     useEffect(() => {
-      if (!isAuthenticated?.state.user.token) {
+      if (!userDataJson?.state.user.token) {
         router.push("/login");
       }
-    }, [isAuthenticated, router]);
+    }, [userDataJson, router]);
 
-    if (!isAuthenticated?.state.user.token) {
+    if (!userDataJson?.state.user.token) {
       return <h1>Cargando</h1>;
     }
 
