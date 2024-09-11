@@ -1,30 +1,24 @@
+"use cliente";
+
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface TypeProps {
   children?: React.ReactNode;
 }
 
-const withAuth = (WrappedComponent: React.ComponentType<any>) => {
-  const Wrapper = (props: any) => {
+const withAuth =
+  (WrappedComponent: React.ComponentType<any>) => (props: any) => {
     const router = useRouter();
-    const userDataString = localStorage.getItem("userStore");
-    const userDataJson = userDataString ? JSON.parse(userDataString) : null;
+    const [isLogin, setIsLogin] = useState(false);
 
     useEffect(() => {
-      if (!userDataJson?.state.user.token) {
-        router.push("/login");
-      }
-    }, [userDataJson, router]);
+      const getToken = JSON.parse(localStorage.getItem("userStore") || "{}");
 
-    if (!userDataJson?.state.user.token) {
-      return <h1>Cargando</h1>;
-    }
+      getToken?.state?.user.token ? setIsLogin(true) : router.push("/login");
+    }, [router]);
 
-    return <WrappedComponent {...props} />;
+    return isLogin ? <WrappedComponent {...props} /> : <h1>Cargando</h1>;
   };
-
-  return Wrapper;
-};
 
 export default withAuth;
