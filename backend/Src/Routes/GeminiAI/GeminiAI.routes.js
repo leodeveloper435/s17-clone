@@ -1,7 +1,11 @@
-import { getAICropRecomendation } from "../../Controllers/GeminiAI/GeminiAI.controller.js";
+import {
+  getAICropRecomendation,
+  getAICropResponse,
+} from "../../Controllers/GeminiAI/GeminiAI.controller.js";
 import express from "express";
 const router = express.Router();
 
-router.route("/").get(getAICropRecomendation);
+router.post("/recommendation", getAICropRecomendation);
+router.post("/response", getAICropResponse);
 
 export default router;

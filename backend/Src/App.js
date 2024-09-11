@@ -59,7 +59,7 @@ app.use("/api/v0/clima", ClimaRouter);
 app.use("/api/v0/campo", CampoRouter);
 app.use("/api/v0/market", MarketRouter);
 app.use("/api/v0/dollar", DollarRouter);
-app.use("/api/v0/recomendation", GeminiAIRouter)
+app.use("/api/v0/agroMentor", GeminiAIRouter)
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
