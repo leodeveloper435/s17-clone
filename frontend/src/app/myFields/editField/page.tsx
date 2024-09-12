@@ -24,11 +24,6 @@ const EditField: React.FC = () => {
   const fieldId = searchParams.get("id");
   const router = useRouter();
 
-  if (!fieldId) {
-    router.push("/myFields");
-    return null;
-  }
-
   const { editField } = userStore((data) => data);
 
   const { fetchData } = useFetchData();
@@ -48,6 +43,8 @@ const EditField: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!fieldId) return;
 
     const updatedField = {
       userId: form.userId,
@@ -77,6 +74,10 @@ const EditField: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!fieldId) {
+      router.push("/myFields");
+      return;
+    }
     console.log("Fetching field data");
     const getFieldData = async () => {
       const { ok, data } = await fetchData(getCampoById, { url: fieldId });
