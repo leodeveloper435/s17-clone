@@ -1,4 +1,4 @@
-import { LoadStateI } from "@/types/generalTypes";
+import { LoadStateI } from "@/types";
 import { create } from "zustand";
 
 export const useLoaderStore = create<LoadStateI>()((set) => ({

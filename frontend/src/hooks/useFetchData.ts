@@ -1,5 +1,5 @@
 import { useLoaderStore } from "@/context/loader.store";
-import { FuntionProps } from "@/types/generalTypes";
+import { FuntionProps } from "@/types";
 import { AxiosResponse } from "axios";
 
 type EndPoint = <T>(data: FuntionProps<T>) => Promise<AxiosResponse<any, any>>;
