@@ -14,8 +14,8 @@ export const getAICropRecomendation = async (req, res) => {
 
 export const getAICropResponse = async (req, res) => {
   try {
-    const {question} = req.body;
-    const response = await GeminiAIService.getAICropResponse(question);
+    const { question, field = null } = req.body;
+    const response = await GeminiAIService.getAICropResponse(question, field);
     const cleanedResponse = response.replace(/\n/g, " ").trim();
     res.status(200).json({ response: cleanedResponse });
   } catch (error) {

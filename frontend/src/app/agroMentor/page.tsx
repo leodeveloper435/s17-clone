@@ -4,54 +4,52 @@ import useFetchData from "@/hooks/useFetchData";
 import Header from "../common/Header";
 import useFormState from "@/hooks/useFormState";
 import { getAgroMentorRecomendation } from "@/services";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { icons } from "@/utils/icons";
 import { userStore } from "@/context/zustand";
-
-const TypeEffect = ({ text }: { text: string }) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (text.length > index) {
-      const timeout = setTimeout(() => {
-        setDisplayedText((prev) => prev + text[index]);
-        setIndex((prev) => prev + 1);
-      }, 50);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [displayedText, index]);
-
-  return displayedText;
-};
+import TypeEffect from "@/components/TypeEffect";
+import { Campo } from "@/types";
 
 const IaRecomendation = () => {
   const { fetchData } = useFetchData();
   const { formState, setFormState, resetForm } = useFormState({ question: "" });
+  const [fieldSelect, setFieldSelect] = useState<null | Campo>(null);
   const [conversation, setConversation] = useState<
     { type: "question" | "response"; text: string }[]
   >([]);
-  const fields = userStore((user) => user.fields);
+  const fields: Campo[] = userStore((user) => user.fields);
 
   const handleSubmit = async () => {
     const client = { type: "question", text: formState.question };
     resetForm();
     setConversation((prev: any) => [...prev, client]);
+    const body: { question: String; field?: Campo } = {
+      ...formState,
+    };
+    if (fieldSelect) body["field"] = fieldSelect;
 
+    console.log(body);
     const { ok, data } = await fetchData(getAgroMentorRecomendation, {
-      body: formState,
+      body: body,
     });
+
+    console.log(data);
 
     ok
       ? setConversation((prev: any) => [
           ...prev,
           { type: "response", text: data.response },
         ])
-      : toast.error("No se pudo trar la recomendacion De AgroMentor");
+      : toast.error("No se pudo traer la recomendacion De AgroMentor");
   };
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    let { value } = e.target;
+    if (value !== "") setFieldSelect(fields[Number(value)]);
+  };
+
+  console.log(fieldSelect);
   return (
     <>
       <Header />
@@ -91,11 +89,12 @@ const IaRecomendation = () => {
                 name="My fields"
                 id="1"
                 className="p-1.5 border rounded max-w-[12.5rem]"
+                onChange={handleSelectChange}
               >
-                <option>Seleccionar un campo</option>
-                {fields.map((field) => {
+                <option value="">Seleccionar un campo</option>
+                {fields.map((field, index) => {
                   return (
-                    <option key={field.id} value={field.id}>
+                    <option key={field.id} value={index}>
                       {field.name}
                     </option>
                   );

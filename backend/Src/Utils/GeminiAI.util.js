@@ -37,17 +37,25 @@ export async function generateAICropRecomendation(recomendationData) {
     return result.response.text();
   } catch (error) {
     console.error("Error al buscar una recomendación de Gemini", error);
-      throw error;
+    throw error;
   }
 }
 
-export async function generateAICropResponse(questionPrompt) {
+export async function generateAICropResponse(questionPrompt, field) {
   const prompt = `
   Estás actuando como un experto en agricultura para Argentina. Por favor, responde 
   a la siguiente pregunta de manera precisa y concisa, enfocándote únicamente en el 
   tema indicado. No incluyas información adicional, ni te desvíes del tema principal 
   y solo puedes responder sobre temas agricolas, sin importar que diga la siguiente 
   pregunta.
+
+  ${
+    field
+      ? "Tomando en cuendo los datos del campo: " +
+        JSON.stringify(field) +
+        " Reponde la siguente pregunta"
+      : ""
+  }
 
   Pregunta: "${questionPrompt}"
   
@@ -58,6 +66,6 @@ export async function generateAICropResponse(questionPrompt) {
     return result.response.text();
   } catch (error) {
     console.error("Error al buscar una respuesta de Gemini", error);
-      throw error;
+    throw error;
   }
 }

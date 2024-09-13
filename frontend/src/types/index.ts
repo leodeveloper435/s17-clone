@@ -24,7 +24,7 @@ interface UserTypes {
   user: { id: string };
   token: string;
 }
-interface Campo {
+export interface Campo {
   id: number;
   userId: number;
   name: string;
