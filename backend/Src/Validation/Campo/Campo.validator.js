@@ -24,12 +24,23 @@ const campoSchema = z.object({
 });
 
 export const validateCampo = (data) => {
-    const result = campoSchema.partial().safeParse(data);
-    const { hasError, errorMessages, userData } = parseValidationResult(result);
-  
-    return {
-      hasError,
-      errorMessages,
-      userData,
-    };
+  const result = campoSchema.safeParse(data);
+  const { hasError, errorMessages, userData } = parseValidationResult(result);
+
+  return {
+    hasError,
+    errorMessages,
+    userData,
   };
+};
+
+export const validateUpdateCampo = (data) => {
+  const result = campoSchema.partial().safeParse(data);
+  const { hasError, errorMessages, userData } = parseValidationResult(result);
+
+  return {
+    hasError,
+    errorMessages,
+    userData,
+  };
+};

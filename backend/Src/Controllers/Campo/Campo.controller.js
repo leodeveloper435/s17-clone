@@ -1,5 +1,5 @@
 import CampoService from "../../Service/Campo/Campo.service.js";
-import { validateCampo } from "../../Validation/Campo/Campo.validator.js";
+import { validateCampo , validateUpdateCampo } from "../../Validation/Campo/Campo.validator.js";
 
 export const getCampos = async (req, res) => {
   try {
@@ -55,7 +55,7 @@ export const createCampo = async (req, res) => {
 };
 
 export const updateCampo = async (req, res) => {
-  const { errorMessages, hasError, userData } = validateCampo(req.body);
+  const { errorMessages, hasError, userData } = validateUpdateCampo(req.body);
   if (hasError) {
     return res.status(422).json({
       status: "error",
