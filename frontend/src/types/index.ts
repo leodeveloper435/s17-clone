@@ -46,4 +46,5 @@ export interface UserStoreProps {
   setUser: (user: UserTypes) => void;
   setFields: (fiels: Campo[]) => void;
   addField: (fiel: Campo) => void;
+  editField: (fiel: Campo) => void;
 }

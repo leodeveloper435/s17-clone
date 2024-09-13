@@ -24,8 +24,14 @@ export const getWeatherForecast = async <T>({ querys }: FuntionProps<T>) =>
 export const getAllCamposByUserId = async <T>({ url }: FuntionProps<T>) =>
   await api.get(`/campo/user/${url}`);
 
+export const getCampoById = async <T>({ url }: FuntionProps<T>) =>
+  await api.get(`/campo/${url}`);
+
 export const createCampo = async <T>({ body }: FuntionProps<T>) =>
   await api.post("/campo", body);
+
+export const editCampo = async <T>({ url, body }: FuntionProps<T>) =>
+  await api.patch(`/campo/${url}`, body);
 
 // Market services
 

@@ -11,6 +11,12 @@ export const userStore = create<UserStoreProps>()(
       setFields: (newFields) => set(() => ({ fields: newFields })),
       addField: (newField) =>
         set((state) => ({ fields: [...state.fields, newField] })),
+      editField: (updatedField) =>
+        set((state) => ({
+          fields: state.fields.map((field) =>
+            field.id === updatedField.id ? updatedField : field
+          ),
+        })),
     }),
     { name: "userStore" }
   )

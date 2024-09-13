@@ -1,12 +1,5 @@
 import React from 'react';
-
-const crops = [
-  { name: 'soja', image: '🌱' },
-  { name: 'maiz',  image: '🌽' },
-  { name: 'trigo', image: '🌾' },
-  { name: 'girasol',  image: '🌻' },
-  { name: 'sorgo',  image: '🌾' },
-];
+import Image from "next/image";
 
 function CropPrices({ marketData }: { marketData: { [key: string]: number } }): React.JSX.Element {
   // console.log(marketData)
@@ -17,7 +10,7 @@ function CropPrices({ marketData }: { marketData: { [key: string]: number } }): 
         {Object.entries(marketData).map(([name, price]) => (
           <div key={name} className="text-center">
             <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
-              <span className="text-3xl">{crops.find((crop) => crop.name === name)?.image}</span>
+              <Image src={"/products/" + name + ".svg"} alt={name} width={64} height={64} className="hover:scale-125 transition duration-300" />
             </div>
             <p className="font-semibold">{name}</p>
             <p className="text-gray-600">${price}</p>
