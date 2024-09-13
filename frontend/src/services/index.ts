@@ -31,3 +31,9 @@ export const createCampo = async <T>({ body }: FuntionProps<T>) =>
 
 export const getMarketGrainPrices = async () => await api.get("/market");
 export const getExchangeRates = async () => await api.get("/dollar");
+
+// AgroMentro service
+
+export const getAgroMentorRecomendation = async <T>({
+  body,
+}: FuntionProps<T>) => await api.post("/agroMentor/response", body);
