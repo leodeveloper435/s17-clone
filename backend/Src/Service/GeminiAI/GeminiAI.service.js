@@ -16,9 +16,9 @@ class GeminiAIService {
     }
   }
 
-  async getAICropResponse(questionPrompt) {
+  async getAICropResponse(questionPrompt, field) {
     try {
-      const response = await generateAICropResponse(questionPrompt);
+      const response = await generateAICropResponse(questionPrompt, field);
       return response;
     } catch (error) {
       console.error("Error al buscar una respuesta", error);

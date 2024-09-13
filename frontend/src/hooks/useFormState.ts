@@ -16,7 +16,11 @@ const useFormState = <T>(initialState: T) => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { formState: form, setFormState };
+  const resetForm = () => {
+    setForm(initialState);
+  };
+
+  return { formState: form, setFormState, resetForm };
 };
 
 export default useFormState;
