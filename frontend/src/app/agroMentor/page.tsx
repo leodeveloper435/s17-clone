@@ -100,7 +100,7 @@ const IaRecomendation = () => {
                   );
                 })}
               </select>
-              <ul className="h-full overflow-auto border my-3 px-2">
+              <ul className="h-full overflow-auto border rounded-lg my-3 px-2">
                 {conversation.map((e, index) => {
                   return e.type === "question" ? (
                     <li
