@@ -1,4 +1,4 @@
-import { QueryProps } from "@/types/generalTypes";
+import { QueryProps } from "@/types";
 
 const createQuerys = (query: QueryProps) => {
   let querys = "";

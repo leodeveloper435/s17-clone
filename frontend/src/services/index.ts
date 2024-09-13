@@ -1,4 +1,4 @@
-import { FuntionProps, QueryProps } from "@/types/generalTypes";
+import { FuntionProps, QueryProps } from "@/types";
 import api from "./api";
 import createQuerys from "@/utils/createQuerys";
 

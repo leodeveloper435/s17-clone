@@ -12,7 +12,7 @@ const TypeEffect = ({ text }: { text: string }) => {
 
       return () => clearTimeout(timeout);
     }
-  }, [displayedText, index]);
+  }, [displayedText, index, text]);
 
   return displayedText;
 };

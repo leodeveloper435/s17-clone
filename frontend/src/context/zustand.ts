@@ -1,4 +1,4 @@
-import { UserStoreProps } from "@/types/generalTypes";
+import { UserStoreProps } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
