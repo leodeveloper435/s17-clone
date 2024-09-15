@@ -12,6 +12,8 @@ import Header from "../common/Header";
 interface WeatherForecast {
   pronosticoPorHoras: any;
   climaActual: {
+    nubes: number;
+    indiceUv: number;
     amanecer: string;
     atardecer: string;
     faseLunar: number;
@@ -71,8 +73,8 @@ const WeatherDashboard: FC = () => {
     maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
     minTemp: weatherForescast?.climaActual?.temperaturaMinima,
     wind: weatherForescast?.climaActual?.viento,
-    clouds: 20,
-    uv: 5,
+    clouds: weatherForescast?.climaActual?.nubes,
+    uv: weatherForescast?.climaActual?.indiceUv,
   };
 
   const getRecommendation = async ({ }) => {
@@ -166,8 +168,8 @@ const WeatherDashboard: FC = () => {
                 <Image
                   src={`https://openweathermap.org/img/wn/${weatherForescast?.climaActual?.iconoClimaActual}.png`}
                   alt="clima actual"
-                  width={100}
-                  height={100}
+                  width={80}
+                  height={80}
                 />
                 <div className="text-4xl font-bold">
                   {weatherForescast?.climaActual?.temperaturaActual}°C
@@ -249,17 +251,23 @@ const WeatherDashboard: FC = () => {
             </div>
 
             {/* UV Index */}
-            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white">
-              <div>Índice de UV</div>
-              <div className="text-2xl font-bold">5.50 uv</div>
-              <div>Alto</div>
+            <div className="col-span-2 bg-gray-800 rounded-lg p-4 text-white text-center">
+              <div>Índice rayos UV</div>
+              <div className="text-2xl font-bold">{weatherForescast?.climaActual?.indiceUv} uv</div>
+              {weatherForescast?.climaActual?.indiceUv < 3 ? (
+                <div className="text-green-400">Bajo</div>
+              ) : weatherForescast?.climaActual?.indiceUv < 6 ? (
+                <div className="text-yellow-400">Moderado</div>
+              ) : (
+                <div className="text-red-400">Alto</div>
+              )}
             </div>
 
             {/* Moon phase */}
             <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
               <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
               <div className="text-center">{selectedLocation.name}</div>
-              <div>08:30</div>
+              <div>{new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</div>
               <div>Fase lunar: {weatherForescast.climaActual?.faseLunar}</div>
             </div>
 
@@ -275,7 +283,7 @@ const WeatherDashboard: FC = () => {
                   {weatherForescast?.climaActual?.temperaturaMinima}°
                 </div>
                 <div>Humedad: {weatherForescast?.climaActual?.humedad}%</div>
-                <div>Nubes: 86%</div>
+                <div>Nubes: {weatherForescast?.climaActual?.nubes} %</div>
                 <div>
                   Viento: {weatherForescast?.climaActual?.viento.velocidad}km/h
                 </div>
