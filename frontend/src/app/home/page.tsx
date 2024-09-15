@@ -27,46 +27,48 @@ interface WeatherForecast {
 
 
 // Sample location data
-const locations = [
-  { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833", crop: "maiz" },
-  { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816", crop: "soja" },
-  { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393", crop: "sorgo" },
-  { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167", crop: "trigo" },
-  { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167", crop: "girasol" },
-];
-
-const WeatherDashboard: FC = () => {
-  const [selectedLocation, setSelectedLocation] = useState(locations[0]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
-    {} as WeatherForecast
+// const locations = [
+  //   { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833", crop: "maiz" },
+  //   { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816", crop: "soja" },
+  //   { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393", crop: "sorgo" },
+  //   { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167", crop: "trigo" },
+  //   { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167", crop: "girasol" },
+  // ];
+  
+  const WeatherDashboard: FC = () => {
+    const locations = userStore((user) => user.fields);
+    console.log(locations[0])
+    const [selectedLocation, setSelectedLocation] = useState(locations[0]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [weatherForescast, setWeatherForescast] = useState<WeatherForecast>(
+      {} as WeatherForecast
+    );
+    const [recommendation, setRecommendation] = useState({} as any);
+    const [searchTerm, setSearchTerm] = useState("");
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const { user, fields } = userStore((data) => data);
+    const { fetchData } = useFetchData();
+    
+    const filteredLocations = locations.filter((location) =>
+      location.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const [recommendation, setRecommendation] = useState({} as any);
-  const [searchTerm, setSearchTerm] = useState("");
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user, fields } = userStore((data) => data);
-  const { fetchData } = useFetchData();
-
-  const filteredLocations = locations.filter((location) =>
-    location.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  
   const getForescast = async (lat: string, lon: string) => {
     const { ok, data } = await fetchData(getWeatherForecast, {
       querys: { lat, lon },
     });
 
     ok
-      ? setWeatherForescast(data)
-      : toast.error("No se puedo traer la prediccion del clima");
-
+    ? setWeatherForescast(data)
+    : toast.error("No se puedo traer la prediccion del clima");
+    
     // console.log(weatherForescast);
   };
-
+  
   const bodyRecommendation = {
-    latitud: selectedLocation.lat,
-    longitude: selectedLocation.lon,
-    crop: selectedLocation.crop,
+    latitud: selectedLocation.latitude,
+    longitude: selectedLocation.longitude,
+    crop: selectedLocation.mainCrop,
     humidity: weatherForescast?.climaActual?.humedad,
     maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
     minTemp: weatherForescast?.climaActual?.temperaturaMinima,
@@ -74,19 +76,19 @@ const WeatherDashboard: FC = () => {
     clouds: 20,
     uv: 5,
   };
-
+  
   const getRecommendation = async ({ }) => {
     const { ok, data } = await fetchData(getShortRecommendation, {
       body: bodyRecommendation,
     });
-
+    
     ok
-      ? setRecommendation(data)
-      : toast.error("No se puedo traer las recomendaciones");
-
+    ? setRecommendation(data)
+    : toast.error("No se puedo traer las recomendaciones");
+    
     console.log("Bodyrecommendation", bodyRecommendation);
   };
-
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -96,8 +98,8 @@ const WeatherDashboard: FC = () => {
         setIsOpen(false);
       }
     };
-
-    getForescast(selectedLocation.lat, selectedLocation.lon); // aqui deberia ir la ubi del user o el campo
+    
+    getForescast(selectedLocation.latitude, selectedLocation.longitude); // aqui deberia ir la ubi del user o el campo
 
     
     
@@ -111,6 +113,7 @@ const WeatherDashboard: FC = () => {
     getRecommendation(bodyRecommendation);
   }, [weatherForescast]);
 
+  
   return (
     <>
       <Header />
@@ -127,7 +130,7 @@ const WeatherDashboard: FC = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 flex items-center justify-between"
             >
-              {selectedLocation.name + " - " + selectedLocation.crop}
+              {selectedLocation.name + " - " + selectedLocation.mainCrop}
               {isOpen ? <Image src="/downarrow.svg" width={20} height={20} alt="" /> : <Image src="/uparrow.svg" width={20} height={20} alt="" />}
             </button>
             {isOpen && (
@@ -150,7 +153,7 @@ const WeatherDashboard: FC = () => {
                         setSearchTerm("");
                       }}
                     >
-                      {location.name + " - " + location.crop}
+                      {location.name + " - " + location.mainCrop}
                     </div>
                   ))}
                 </div>
