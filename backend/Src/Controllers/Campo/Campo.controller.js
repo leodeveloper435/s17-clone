@@ -1,4 +1,5 @@
 import CampoService from "../../Service/Campo/Campo.service.js";
+import { validateCampo , validateUpdateCampo } from "../../Validation/Campo/Campo.validator.js";
 
 export const getCampos = async (req, res) => {
   try {
@@ -38,8 +39,15 @@ export const getAllCamposByUserId = async (req, res) => {
 };
 
 export const createCampo = async (req, res) => {
+  const { errorMessages, hasError, userData } = validateCampo(req.body);
+  if (hasError) {
+    return res.status(422).json({
+      status: "error",
+      message: errorMessages,
+    });
+  }
   try {
-    const newCampo = await CampoService.createCampo(req.body);
+    const newCampo = await CampoService.createCampo(userData);
     res.status(201).json(newCampo);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -47,10 +55,16 @@ export const createCampo = async (req, res) => {
 };
 
 export const updateCampo = async (req, res) => {
+  const { errorMessages, hasError, userData } = validateUpdateCampo(req.body);
+  if (hasError) {
+    return res.status(422).json({
+      status: "error",
+      message: errorMessages,
+    });
+  }
   try {
-    const { campoId } = req.params;
-    const updatedata = req.body;
-    const updatedCampo = await CampoService.updateCampo(campoId, updatedata);
+    const { id } = req.params;
+    const updatedCampo = await CampoService.updateCampo(id, userData);
     if (!updatedCampo) {
       res.status(404).json({ error: "Campo no encontrado." });
     } else {
@@ -62,29 +76,28 @@ export const updateCampo = async (req, res) => {
 };
 
 export const deleteCampo = async (req, res) => {
-    try {
-      const { campoId } = req.params;
-      const deletedCampo = await CampoService.deleteCampo(campoId);
-      if (!deletedCampo) {
-        res.status(404).json({ error: "Campo no encontrado." });
-      } else {
-        res.json(deletedCampo);
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  try {
+    const { campoId } = req.params;
+    const deletedCampo = await CampoService.deleteCampo(campoId);
+    if (!deletedCampo) {
+      res.status(404).json({ error: "Campo no encontrado." });
+    } else {
+      res.json(deletedCampo);
     }
-  };
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-  export const deleteAllCampos = async (req, res) => {
-    try {
-      const deletedCampos = await CampoService.deleteAllCampos();
-      if (!deletedCampos) {
-        res.status(404).json({ error: "Campos no encontrados." });
-      } else {
-        res.json(deletedCampos);
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+export const deleteAllCampos = async (req, res) => {
+  try {
+    const deletedCampos = await CampoService.deleteAllCampos();
+    if (!deletedCampos) {
+      res.status(404).json({ error: "Campos no encontrados." });
+    } else {
+      res.json(deletedCampos);
     }
-  };
-
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -30,11 +30,11 @@ const Campo = sequelize.define(
     // },
     latitude: {
       type: DataTypes.DECIMAL(10, 8),
-      allowNull: true,
+      allowNull: false,
     },
     longitude: {
       type: DataTypes.DECIMAL(11, 8),
-      allowNull: true,
+      allowNull: false,
     },
     size: {
       type: DataTypes.INTEGER,
