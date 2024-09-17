@@ -8,6 +8,7 @@ import { FC, useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import withAuth from "../auth/withAuth";
 import Header from "../common/Header";
+import { useRouter } from "next/navigation";
 
 interface WeatherForecast {
   pronosticoPorHoras: any;
@@ -27,16 +28,6 @@ interface WeatherForecast {
   prediccionDias: any[];
 }
 
-
-// Sample location data
-// const locations = [
-  //   { id: 1, name: "Córdoba, Argentina", lat: "-31.4167", lon: "-64.1833", crop: "maiz" },
-  //   { id: 2, name: "Buenos Aires, Argentina", lat: "-34.6037", lon: "-58.3816", crop: "soja" },
-  //   { id: 3, name: "Rosario, Argentina", lat: "-32.9468", lon: "-60.6393", crop: "sorgo" },
-  //   { id: 4, name: "Mendoza, Argentina", lat: "-32.8833", lon: "-68.8167", crop: "trigo" },
-  //   { id: 5, name: "Salta, Argentina", lat: "-24.7833", lon: "-65.4167", crop: "girasol" },
-  // ];
-  
   const WeatherDashboard: FC = () => {
     const locations = userStore((user) => user.fields);
     console.log(locations[0])
@@ -50,6 +41,7 @@ interface WeatherForecast {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const { user, fields } = userStore((data) => data);
     const { fetchData } = useFetchData();
+    const router = useRouter();
     
     const filteredLocations = locations.filter((location) =>
       location.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -119,7 +111,7 @@ interface WeatherForecast {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-pink-50 p-8">
+     {selectedLocation ? ( <div className="min-h-screen bg-pink-50 p-8">
         <Head>
           <title>Panel del clima</title>
           <link rel="icon" href="/favicon.ico" />
@@ -335,7 +327,18 @@ interface WeatherForecast {
             </div>
           </div>
         </main>
-      </div>
+      </div>) : (
+              <div className="flex flex-col justify-center items-center">
+                <h1 className="text-3xl font-bold mb-6 text-center">No hay campos creados!!!</h1>
+                <p>Para mostrar el clima en tus campos, primero deberías crea uno</p>
+                <button
+                onClick={() => router.push("myFields/createField")}
+                className="mt-4 bg-[#2f6c3d] text-white px-4 py-2 rounded"
+                            >
+                Crear campo
+                            </button>
+              </div>
+      )}
     </>
   );
 };
