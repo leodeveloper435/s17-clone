@@ -1,13 +1,13 @@
 {
-  "name": "backend",
+"name": "backend",
   "version": "1.0.0",
-  "main": "App.js",
+  "main": "Src/App.js",
   "type": "module",
   "scripts": {
-  "start": "node Src/App.js",
-  "dev": "nodemon Src/App.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-}
+    "start": "node Src/App.js",
+    "dev": "nodemon Src/App.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 ,
   "keywords": [],
   "author": "",
