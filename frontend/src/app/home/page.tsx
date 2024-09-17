@@ -93,10 +93,8 @@ interface WeatherForecast {
       }
     };
     
-    getForescast(selectedLocation?.latitude, selectedLocation?.longitude); // aqui deberia ir la ubi del user o el campo
+    selectedLocation && getForescast(selectedLocation?.latitude, selectedLocation?.longitude); // aqui deberia ir la ubi del user o el campo
 
-    
-    
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -328,12 +326,12 @@ interface WeatherForecast {
           </div>
         </main>
       </div>) : (
-              <div className="flex flex-col justify-center items-center">
-                <h1 className="text-3xl font-bold mb-6 text-center">No hay campos creados!!!</h1>
-                <p>Para mostrar el clima en tus campos, primero deberías crea uno</p>
+              <div className="flex flex-col justify-center items-center bg-primary text-black min-h-custom">
+                <h1 className="text-3xl font-bold mb-2 text-center">No hay campos creados!!!</h1>
+                <p className="text-lg font-semibold ">Para mostrar el clima en tus campos, primero deberías crea uno</p>
                 <button
                 onClick={() => router.push("myFields/createField")}
-                className="mt-4 bg-[#2f6c3d] text-white px-4 py-2 rounded"
+                className="mt-10 bg-[#2f6c3d] text-white px-4 py-2  rounded"
                             >
                 Crear campo
                             </button>

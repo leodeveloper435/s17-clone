@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        "primary":"#fce8d9"
+      },
       maxHeight: {
         "custom": "calc(100vh - 75px)"
       },
