@@ -21,9 +21,9 @@ export function decodeToken(token) {
 }
 
 export function authenticate(req, res, next) {
+  console.log(token)
   const token = req.session.jwt;
 
-  console.log(token)
   if (!token) {
     return res
       .status(401)
