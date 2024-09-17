@@ -10,6 +10,7 @@ class SessionService {
                 throw new Error("Invalid email or password");
             }
             const token = generateTokenJWT({ id: user.id, email: user.email });
+            req.session.jwt = token;
             return { user, token };
         } catch (error) {
             console.error("Error in login service:", error);
