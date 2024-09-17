@@ -36,9 +36,27 @@ const swaggerSpec = {
 };
 
 const swagger = swaggerjsdoc(swaggerSpec);
+// Allowed origins array
+const allowedOrigins = [
+  'https://s17-05-m-node-react.onrender.com',
+  'http://localhost:3000'
+];
 
+// Set up CORS with dynamic origin
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+};
 //Middlewares Global
-app.use(cors({origin: ["http://localhost:3000", "https://s17-05-m-node-react.onrender.com"],credentials:true}));
+app.use(cors(corsOptions));
+// app.use(cors({origin: ["http://localhost", "https://s17-05-m-node-react.onrender.com"],credentials:true}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
