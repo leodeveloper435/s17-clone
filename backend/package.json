@@ -4,6 +4,8 @@
   "main": "App.js",
   "type": "module",
   "scripts": {
+    "root": "backend",
+    "build": "npm install",
     "start": "node Src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
