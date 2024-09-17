@@ -57,11 +57,8 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 //Middlewares Global
-// app.use(cors({origin: ["http://localhost:3000", "https://s17-05-m-node-react.onrender.com"],credentials:true}));
-app.use(cors({
-  origin: "*", 
-  credentials: true
-}));
+app.use(cors(corsOptions));
+// app.use(cors({origin: ["http://localhost", "https://s17-05-m-node-react.onrender.com"],credentials:true}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
