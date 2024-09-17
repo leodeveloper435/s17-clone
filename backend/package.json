@@ -1,14 +1,15 @@
 {
-"name": "backend",
+  "name": "backend",
   "version": "1.0.0",
-  "main": "Src/App.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "root": "backend",
+    "build": "npm install",
     "start": "node Src/App.js",
     "dev": "nodemon Src/App.js",
     "test": "echo \"Error: no test  specified\" && exit 1"
-  }
-,
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "nodemon": "^3.1.5",
     "path": "^0.12.7",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
