@@ -11,30 +11,26 @@ import { userStore } from "@/context/zustand";
 import TypeEffect from "@/components/TypeEffect";
 import { Campo } from "@/types";
 
+type Conversation = { type: "question" | "response"; text: string }
+
 const IaRecomendation = () => {
   const { fetchData } = useFetchData();
   const { formState, setFormState, resetForm } = useFormState({ question: "" });
   const [fieldSelect, setFieldSelect] = useState<null | Campo>(null);
-  const [conversation, setConversation] = useState<
-    { type: "question" | "response"; text: string }[]
-  >([]);
+  const [conversation, setConversation] = useState<Conversation[]>([]);
   const fields: Campo[] = userStore((user) => user.fields);
 
   const handleSubmit = async () => {
     const client = { type: "question", text: formState.question };
     resetForm();
-    setConversation((prev: any) => [...prev, client]);
-    const body: { question: String; field?: Campo } = {
-      ...formState,
-    };
+    setConversation((prev:any) => [...prev, client]);
+
+    const body: { question: String; field?: Campo } = { ...formState };
     if (fieldSelect) body["field"] = fieldSelect;
 
-    console.log(body);
     const { ok, data } = await fetchData(getAgroMentorRecomendation, {
       body: body,
     });
-
-    console.log(data);
 
     ok
       ? setConversation((prev: any) => [
@@ -49,13 +45,11 @@ const IaRecomendation = () => {
     if (value !== "") setFieldSelect(fields[Number(value)]);
   };
 
-  console.log(fieldSelect);
   return (
     <>
       <Header />
-      <div className="min-h-[calc(100vh-6rem)] w-full flex">
-        <div className="flex m-2 text-center w-full ">
-          <div className="w-3/12 bg-white rounded-l-xl py-5 px-3 border-r-2 border-primary-green">
+      <div className="h-screen md:max-h-[calc(100vh-6rem)] w-full flex text-center">
+          <div className="w-3/12 hidden md:block bg-white  py-5 px-3 border-r-2 border-primary-green overflow-auto">
             <p className="text-[1.4rem] text-primary-green font-bold mb-5">
               Últimas preguntas
             </p>
@@ -65,7 +59,7 @@ const IaRecomendation = () => {
                   return (
                     <li
                       key={index + 1}
-                      className="border text-black text-[1rem] font-semibold p-1 border-primary-green rounded-md"
+                      className="border text-black text-[1rem] font-semibold p-1 border-primary-green rounded-md break-words"
                     >
                       {e.text}
                     </li>
@@ -73,7 +67,7 @@ const IaRecomendation = () => {
               })}
             </ul>
           </div>
-          <div className="w-9/12 border bg-white text-black pb-0 pt-4 rounded-r-xl flex max-h-[calc(100vh-7rem)] justify-center ">
+          <div className="w-full md:w-9/12 border bg-white text-black pb-0 pt-4 flex justify-center ">
             <div className="max-w-[40.625rem] flex flex-col justify-between px-2">
               <div>
                 <h1 className="text-[1.8rem] text-primary-green font-bold mb-4">
@@ -88,7 +82,7 @@ const IaRecomendation = () => {
               <select
                 name="My fields"
                 id="1"
-                className="p-1.5 border rounded max-w-[12.5rem]"
+                className="p-1.5 mt-2 border rounded max-w-[12.5rem]"
                 onChange={handleSelectChange}
               >
                 <option value="">Seleccionar un campo</option>
@@ -105,9 +99,9 @@ const IaRecomendation = () => {
                   return e.type === "question" ? (
                     <li
                       key={index + 1}
-                      className="text-right flex justify-end "
+                      className="text-right flex justify-end"
                     >
-                      <div className="border p-1 px-5 rounded-lg bg-seconday-green my-2">
+                      <div className="border p-1 px-5 rounded-lg bg-seconday-green my-2 max-w-[80%] break-words">
                         {e.text}
                       </div>
                     </li>
@@ -146,7 +140,6 @@ const IaRecomendation = () => {
               </div> */}
             </div>
           </div>
-        </div>
       </div>
     </>
   );
