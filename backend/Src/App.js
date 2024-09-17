@@ -67,14 +67,24 @@ dotenv.config();
 app.use(morgan("dev"));
 app.use("/api/doc", swaggerui.serve, swaggerui.setup(swagger));
 //Cookies
-app.use(
-  Session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 24 * 7 },
-  })
-);
+// app.use(
+//   Session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { maxAge: 1000 * 60 * 24 * 7 },
+//   })
+// );
+app.use(Session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 24 * 7,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  }
+}));
 
 app.use("/api/v0/auth", AuthRouter);
 app.use("/api/v0/clima", authenticate, ClimaRouter);
