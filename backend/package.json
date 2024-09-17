@@ -4,7 +4,9 @@
   "main": "App.js",
   "type": "module",
   "scripts": {
-    "start": "node --watch src/app.js",
+    "root": "backend",
+    "build": "npm install",
+    "start": "node --watch Src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
