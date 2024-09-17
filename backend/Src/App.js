@@ -4,10 +4,10 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import AuthRouter from "./Routes/Auth/Auth.routes.js";
 import CampoRouter from "./Routes/Campo/Campo.routes.js";
-import MarketRouter from "./Routes/Market/Market.routes.js"
-import DollarRouter from "./Routes/Dollar/Dollar.routes.js"
+import MarketRouter from "./Routes/Market/Market.routes.js";
+import DollarRouter from "./Routes/Dollar/Dollar.routes.js";
 import ClimaRouter from "./Routes/Clima/Clima.routes.js";
-import GeminiAIRouter from "./Routes/GeminiAI/GeminiAI.routes.js"
+import GeminiAIRouter from "./Routes/GeminiAI/GeminiAI.routes.js";
 import { __dirname } from "./Utils/RouteAbsolute.util.js";
 import path from "path";
 import cors from "cors";
@@ -38,8 +38,8 @@ const swaggerSpec = {
 const swagger = swaggerjsdoc(swaggerSpec);
 // Allowed origins array
 const allowedOrigins = [
-  'https://s17-05-m-node-react.onrender.com',
-  'http://localhost:3000'
+  "https://s17-05-m-node-react.onrender.com",
+  "http://localhost:3000",
 ];
 
 // Set up CORS with dynamic origin
@@ -48,13 +48,13 @@ const corsOptions = {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   // methods : "GET,HEAD,PUT,PATCH,POST,DELETE",
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 //Middlewares Global
 app.use(cors(corsOptions));
@@ -75,23 +75,25 @@ app.use("/api/doc", swaggerui.serve, swaggerui.setup(swagger));
 //     cookie: { maxAge: 1000 * 60 * 24 * 7 },
 //   })
 // );
-app.use(Session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60 * 24 * 7,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax'
-  }
-}));
+app.use(
+  Session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 24 * 7,
+      secure: false,
+      sameSite: "none",
+    },
+  })
+);
 
 app.use("/api/v0/auth", AuthRouter);
 app.use("/api/v0/clima", authenticate, ClimaRouter);
 app.use("/api/v0/campo", authenticate, CampoRouter);
 app.use("/api/v0/market", authenticate, MarketRouter);
 app.use("/api/v0/dollar", authenticate, DollarRouter);
-app.use("/api/v0/agroMentor", authenticate, GeminiAIRouter)
+app.use("/api/v0/agroMentor", authenticate, GeminiAIRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
