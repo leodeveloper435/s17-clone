@@ -77,11 +77,11 @@ app.use(
 );
 
 app.use("/api/v0/auth", AuthRouter);
-app.use("/api/v0/clima", authenticate, ClimaRouter);
-app.use("/api/v0/campo", authenticate, CampoRouter);
-app.use("/api/v0/market", authenticate, MarketRouter);
-app.use("/api/v0/dollar", authenticate, DollarRouter);
-app.use("/api/v0/agroMentor", authenticate, GeminiAIRouter)
+app.use("/api/v0/clima", ClimaRouter);
+app.use("/api/v0/campo", CampoRouter);
+app.use("/api/v0/market", MarketRouter);
+app.use("/api/v0/dollar", DollarRouter);
+app.use("/api/v0/agroMentor", GeminiAIRouter)
 
 app.listen(PORT, () => {
   console.log(`Server Running On port ${PORT}`);
