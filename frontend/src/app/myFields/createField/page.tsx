@@ -142,11 +142,12 @@ const CreateField: React.FC = () => {
             ))}
           </div>
 
-          <div>
-            <MapView
+          <div className="border h-[325px]">
+              <MapView
               latitude={parseFloat(form.latitude)}
               longitude={parseFloat(form.longitude)}
             />
+          
             <div className="flex mt-5 space-x-2 justify-center">
               {locationInputFields.map((field, index) => (
                 <div className="relative" key={index + 1}>

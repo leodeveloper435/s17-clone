@@ -41,7 +41,7 @@ const MapView: React.FC<Props> = React.memo(function MapView({
 
   return (
     <MapContainer
-      className="h-[332px] w-full rounded-lg"
+      className="w-full h-full rounded-lg"
       center={[latitude, longitude]}
       zoom={15}
       scrollWheelZoom={false}

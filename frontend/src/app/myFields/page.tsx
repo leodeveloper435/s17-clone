@@ -26,11 +26,11 @@ const MyFields = () => {
   return (
     <>
     <Header/>
-    <div className="min-h-[calc(100vh-96px)] bg-[#fce8d9] flex flex-col justify-center items-center space-y-10 text-black">
+    <div className="min-h-[calc(100vh-96px)] bg-[#fce8d9] p-10 flex flex-col justify-between items-center text-black">
       {fields.length ? (
-            <div className="h-full">  
+            <div className="h-full w-full max-w-[600px]">  
             <h1 className="text-3xl font-bold mb-6 text-center">Mis campos</h1>
-            <div className="space-y-4">
+            <div className="space-y-4 ">
               {fields.map((field) => (
                 <Field key={field.id} field={field} />
               ))}
