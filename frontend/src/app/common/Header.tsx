@@ -11,14 +11,13 @@ const Header: React.FC = () => {
   return (
     <header
       className="bg-primary-green
-                 lg:p-4
-                 h-[60px]
-                 lg:h-full
+                 h-[50px]
+                 lg:h-[75px]
+                 px-6
                  flex
                  justify-between
                  items-center
                  shadow-md
-
                  relative
                  "
     >
@@ -33,9 +32,9 @@ const Header: React.FC = () => {
         <img
           src="/AgroSmart.png"
           alt="Logo AgroSmart"
-          className="lg:w-[250px]
+          className="lg:w-[200px]
                      -mb-2
-                     w-[200px]"
+                     w-[150px]"
         />
       </div>
 
@@ -54,7 +53,6 @@ const Header: React.FC = () => {
       <nav
         className={`lg:flex
                     lg:space-x-6
-
                    absolute
                    lg:relative
                    flex-col
@@ -76,6 +74,7 @@ const Header: React.FC = () => {
                    lg:min-h-full
                    h-max-content
                    lg:h-full
+                   items-center
                    ${isMenuVisible ? "translate-x-0" : "-translate-x-full"}
                    lg:translate-x-0
                    transition-transform
@@ -85,7 +84,7 @@ const Header: React.FC = () => {
         <Link
           href="/services"
           className="w-[135px]
-                     h-[47px]
+                     h-[43px]
                      bg-[#F4E2C7]
                      text-gray-800
                      text-lg
@@ -103,7 +102,7 @@ const Header: React.FC = () => {
         <Link
           href="/market"
           className="w-[135px]
-                     h-[47px]
+                     h-[43px]
                      bg-[#F4E2C7]
                      text-gray-800
                      text-lg text-center
@@ -121,7 +120,7 @@ const Header: React.FC = () => {
         <Link
           href="/home"
           className="w-[135px]
-                     h-[47px]
+                     h-[43px]
                      bg-[#F4E2C7]
                      text-gray-800
                      text-lg text-center
@@ -139,7 +138,7 @@ const Header: React.FC = () => {
         <Link
           href="/about"
           className="w-[135px]
-                     h-[47px]
+                     h-[43px]
                      bg-[#F4E2C7]
                      text-gray-800
                      text-lg text-center
@@ -187,7 +186,8 @@ const Header: React.FC = () => {
         >
           <Link
             href="/login"
-            className="w-[135px] h-[47px]
+            className=" h-[43px]
+                       px-2
                        bg-[#D2A23A]
                        text-gray-800
                        text-lg
@@ -207,7 +207,7 @@ const Header: React.FC = () => {
           </Link>
           <Link
             href="/register"
-            className="w-[135px] h-[47px]
+            className="w-[135px] h-[43px]
                        bg-[#D2A23A]
                        text-gray-800
                        text-lg text-center
@@ -241,7 +241,7 @@ const Header: React.FC = () => {
             href="/register"
             className="hidden
                        lg:flex
-                       lg:h-[47px]
+                       lg:h-[43px]
                        px-5
                        bg-[#D2A23A]
                        text-gray-800
@@ -266,10 +266,10 @@ const Header: React.FC = () => {
 
           <Link
             href="/register"
-            className="w-12
-                       h-12
-                       lg:w-16
-                       lg:h-16
+            className="w-11
+                       h-11
+                       lg:w-14
+                       lg:h-14
                        bg-[#D2A23A]
                        text-gray-800
                        text-lg

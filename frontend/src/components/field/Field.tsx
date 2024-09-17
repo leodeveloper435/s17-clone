@@ -24,7 +24,7 @@ const Field: React.FC<FieldProps> = ({ field }) => {
   const [isExpanded, setIsExpanded] = useState(field.id === 1);
 
   return (
-    <div className="bg-white rounded-lg shadow-md ">
+    <div className="bg-white w-full rounded-lg shadow-md ">
       <div
         className="flex justify-between items-center p-4 cursor-pointer"
 
@@ -61,7 +61,7 @@ const Field: React.FC<FieldProps> = ({ field }) => {
               {/* <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
                 <span className="text-gray-500">Map placeholder</span>
               </div> */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="flex h-full">
                 <MapView
                   latitude={parseFloat(field.latitude)}
                   longitude={parseFloat(field.longitude)}

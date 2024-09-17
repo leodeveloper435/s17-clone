@@ -3,6 +3,7 @@
 import { userStore } from "@/context/zustand";
 import { useRouter } from "next/navigation";
 import Field from "../../components/field/Field";
+import Header from "../common/Header";
 // import { useState } from "react";
 
 // interface FieldData {
@@ -23,11 +24,13 @@ const MyFields = () => {
   const router = useRouter();
   console.log(fields)
   return (
-    <div className="min-h-[calc(100vh-95px)] flex flex-col justify-center items-center space-y-10 text-black">
-      {fields ? (
-            <div className="min-h-screen bg-[#fce8d9] p-8">
+    <>
+    <Header/>
+    <div className=" min-h-custom bg-[#fce8d9] p-10 flex flex-col justify-between items-center text-black">
+      {fields.length ? (
+            <div className="h-full w-full max-w-[600px]">  
             <h1 className="text-3xl font-bold mb-6 text-center">Mis campos</h1>
-            <div className="space-y-4">
+            <div className="space-y-4 ">
               {fields.map((field) => (
                 <Field key={field.id} field={field} />
               ))}
@@ -35,7 +38,7 @@ const MyFields = () => {
 
           </div>
       ) : (
-        <p>No hay campos creados!!</p>
+        <h3 className="text-2xl font-semibold">No hay campos creados!!</h3>
       )}
       <button
         onClick={() => router.push("myFields/createField")}
@@ -44,6 +47,7 @@ const MyFields = () => {
         Crear campo
       </button>
     </div>
+    </>
   );
 };
 

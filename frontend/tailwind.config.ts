@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxHeight: {
+        "custom": "calc(100vh - 75px)"
+      },
+      minHeight:{
+        "custom": "calc(100vh - 75px)"
+      },
       colors: {
         "primary-green": "#235C2A",
         "seconday-green": "#86B762",
