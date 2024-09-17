@@ -68,9 +68,9 @@ interface WeatherForecast {
   };
   
   const bodyRecommendation = {
-    latitud: selectedLocation?.latitude || "no disponible",
-    longitude: selectedLocation?.longitude || "no disponible",
-    crop: selectedLocation?.mainCrop || "no disponible",
+    latitud: selectedLocation?.latitude,
+    longitude: selectedLocation?.longitude,
+    crop: selectedLocation?.mainCrop,
     humidity: weatherForescast?.climaActual?.humedad,
     maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
     minTemp: weatherForescast?.climaActual?.temperaturaMinima,
