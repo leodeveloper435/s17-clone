@@ -68,9 +68,9 @@ interface WeatherForecast {
   };
   
   const bodyRecommendation = {
-    latitud: selectedLocation.latitude,
-    longitude: selectedLocation.longitude,
-    crop: selectedLocation.mainCrop,
+    latitud: selectedLocation?.latitude || "no disponible",
+    longitude: selectedLocation?.longitude || "no disponible",
+    crop: selectedLocation?.mainCrop || "no disponible",
     humidity: weatherForescast?.climaActual?.humedad,
     maxTemp: weatherForescast?.climaActual?.temperaturaMaxima,
     minTemp: weatherForescast?.climaActual?.temperaturaMinima,
@@ -101,7 +101,7 @@ interface WeatherForecast {
       }
     };
     
-    getForescast(selectedLocation.latitude, selectedLocation.longitude); // aqui deberia ir la ubi del user o el campo
+    getForescast(selectedLocation?.latitude, selectedLocation?.longitude); // aqui deberia ir la ubi del user o el campo
 
     
     
@@ -132,7 +132,7 @@ interface WeatherForecast {
               onClick={() => setIsOpen(!isOpen)}
               className="bg-white border border-gray-300 rounded-md px-4 py-2  text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 flex items-center justify-between"
             >
-              {selectedLocation.name + " - " + selectedLocation.mainCrop}
+              {selectedLocation?.name + " - " + selectedLocation?.mainCrop}
               {isOpen ? <Image src="/downarrow.svg" width={20} height={20} alt="" /> : <Image src="/uparrow.svg" width={20} height={20} alt="" />}
             </button>
             {isOpen && (
@@ -177,7 +177,7 @@ interface WeatherForecast {
                 <div className="text-4xl font-bold">
                   {weatherForescast?.climaActual?.temperaturaActual}°C
                 </div>
-                <div className="text-center">{selectedLocation.name}</div>
+                <div className="text-center">{selectedLocation?.name}</div>
                 <div className="border-b-2 border-gray-200 pb-4 text-center">
                   {new Intl.DateTimeFormat("es-AR", {
                     weekday: "long",
@@ -269,7 +269,7 @@ interface WeatherForecast {
             {/* Moon phase */}
             <div className="col-span-2 bg-gray-800 rounded-lg flex flex-col items-center p-4 text-white">
               <Image src="/sunset.svg" alt="Sunset" width={50} height={50} />
-              <div className="text-center">{selectedLocation.name}</div>
+              <div className="text-center">{selectedLocation?.name}</div>
               <div>{new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}</div>
               <div>Fase lunar: {weatherForescast.climaActual?.faseLunar}</div>
             </div>

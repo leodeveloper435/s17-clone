@@ -19,8 +19,8 @@ const userFullSchema = z.object({
     .min(1, "El apellido es obligatorio")
     .max(255, "El apellido no puede tener más de 255 caracteres"),
   role: z.enum(["User", "Admin", "Producer"]).default("User"),
-  latitude: z.number().min(-90).max(90).nullable(),
-  longitude: z.number().min(-180).max(180).nullable(),
+  latitude: z.number().min(-90).max(90).nullable().default(null),
+  longitude: z.number().min(-180).max(180).nullable().default(null),
 });
 
 const userSchemaLogin = z.object({
@@ -30,7 +30,7 @@ const userSchemaLogin = z.object({
     .max(255, "El email no puede tener más de 255 caracteres"),
   password: z
     .string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .min(1, "La contraseña debe tener al menos 1 caracteres")
     .max(255, "La contraseña no puede tener más de 255 caracteres"),
 });
 
@@ -44,7 +44,6 @@ export const validateUser = (data) => {
     userData,
   };
 };
-
 
 export const validateLogInUser = (data) => {
   const result = userSchemaLogin.safeParse(data);
