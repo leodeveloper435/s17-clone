@@ -48,8 +48,9 @@ const IaRecomendation = () => {
   return (
     <>
       <Header />
-      <div className="h-screen md:max-h-[calc(100vh-6rem)] w-full flex text-center">
-          <div className="w-3/12 hidden md:block bg-white  py-5 px-3 border-r-2 border-primary-green overflow-auto">
+      <div className="h-screen md:max-h-custom ">
+        <div className="w-full flex text-center h-full p-2 bg-[url('/campoBg.jpg')] bg-no-repeat bg-cover">
+          <div className="w-3/12 hidden md:block bg-[#EEC044] rounded-l-2xl py-5 px-3 border-r-2 border-primary-green overflow-auto">
             <p className="text-[1.4rem] text-primary-green font-bold mb-5">
               Últimas preguntas
             </p>
@@ -67,7 +68,7 @@ const IaRecomendation = () => {
               })}
             </ul>
           </div>
-          <div className="w-full md:w-9/12 border bg-white text-black pb-0 pt-4 flex justify-center ">
+          <div className="w-full md:w-9/12 border bg-white text-black pb-0 pt-4 flex justify-center rounded-r-2xl">
             <div className="max-w-[40.625rem] flex flex-col justify-between px-2">
               <div>
                 <h1 className="text-[1.8rem] text-primary-green font-bold mb-4">
@@ -126,7 +127,7 @@ const IaRecomendation = () => {
                   placeholder="Escribe tu pregunta aquí"
                   autoComplete="off"
                 />
-                <button onClick={handleSubmit}>{icons.send}</button>
+                <button className="focus:right-0 cursor-pointer" disabled={!formState.question.length?true:false} onClick={handleSubmit}>{icons.send}</button>
               </div>
               {/* <div className="space-y-3 mb-10 pt-5">
                 <p className="text-xl font-semibold">
@@ -140,6 +141,7 @@ const IaRecomendation = () => {
               </div> */}
             </div>
           </div>
+      </div>
       </div>
     </>
   );
