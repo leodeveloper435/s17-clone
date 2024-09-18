@@ -10,7 +10,6 @@ import { loginUser, getAllCamposByUserId } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { userStore } from "@/context/zustand";
-import Image from "next/image";
 
 const Login: React.FC = () => {
   const { formState, setFormState } = useFormState({ email: "", password: "" });
@@ -47,12 +46,12 @@ const Login: React.FC = () => {
 
       <div className="max-w-lg w-full space-y-8 bg-white p-8 z-20 rounded-lg">
         <div className="flex justify-center py-10">
-          <Image
+          <img
             alt="Logo AgroSmart"
             src={"/AgroSmart.webp"}
             width={250}
             height={250}
-          ></Image>
+          ></img>
         </div>
 
         <div>

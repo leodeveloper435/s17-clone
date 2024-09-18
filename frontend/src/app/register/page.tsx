@@ -9,7 +9,6 @@ import useFetchData from "@/hooks/useFetchData";
 import { registerUser } from "@/services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const Register: React.FC = () => {
   const { fetchData } = useFetchData();
@@ -42,12 +41,12 @@ const Register: React.FC = () => {
 
       <div className="max-w-lg w-full space-y-8 z-20 bg-white p-10 rounded-lg">
         <div className="flex justify-center">
-          <Image
+          <img
             alt="Logo AgroSmart"
             src={"/AgroSmart.webp"}
             width={250}
             height={250}
-          ></Image>
+          ></img>
         </div>
 
         <div>

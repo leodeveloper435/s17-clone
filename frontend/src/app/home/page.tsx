@@ -284,7 +284,7 @@ interface WeatherForecast {
             </div>
             {/* Weather infographics */}
             <div className="col-span-3 row-span-2 bg-gray-800 rounded-lg ">
-              <Image src="/riego.webp" alt="Weather" width={500} height={500} />
+              <img src="/riego.webp" alt="Weather" width={500} height={500} />
             </div>
 
             {/* Hourly forecast */}
