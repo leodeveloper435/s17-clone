@@ -7,8 +7,12 @@ import { NotificationLogo } from "@/svg/NotificationLogo";
 import { icons } from "@/utils/icons";
 
 const Header: React.FC = () => {
-  const user = userStore((data) => data.user);
+  const {user} = userStore.getState();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const closeSesion = () => {
+    if(window) localStorage.removeItem("userStore")
+  }
   return (
     <header
       className="bg-primary-green
@@ -257,7 +261,8 @@ const Header: React.FC = () => {
                      lg:right-0"
         >
           <Link
-            href="/register"
+            href="/login"
+            onClick={closeSesion}
             className="hidden
                        lg:flex
                        lg:h-[43px]
@@ -277,8 +282,7 @@ const Header: React.FC = () => {
                        focus:ring-yellow-500
                        transition-colors"
           >
-            {icons.sonner}
-            notificaciones
+            Cerrar sesion
           </Link>
 
           <Link href="/register" className="lg:hidden">

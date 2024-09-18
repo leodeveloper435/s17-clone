@@ -18,7 +18,7 @@ const IaRecomendation = () => {
   const { formState, setFormState, resetForm } = useFormState({ question: "" });
   const [fieldSelect, setFieldSelect] = useState<null | Campo>(null);
   const [conversation, setConversation] = useState<Conversation[]>([]);
-  const fields: Campo[] = userStore((user) => user.fields);
+  const fields: Campo[] = userStore.getState().fields;
 
   const handleSubmit = async () => {
     const client = { type: "question", text: formState.question };
