@@ -35,7 +35,7 @@ const Header: React.FC = () => {
                    justify-center"
       >
         <img
-          src="/AgroSmart.png"
+          src="/AgroSmart.webp"
           alt="Logo AgroSmart"
           className="lg:w-[200px]
                      -mb-2
@@ -309,9 +309,9 @@ const Header: React.FC = () => {
                        focus:outline-none
                        focus:ring-2
                        focus:ring-yellow-500
-                       bg-[url('/avatar.png')]"
+                       bg-[url('/avatar.webp')]"
           >
-            {/* <img src="/avatar.png" alt="avatar" className="w-full" /> */}
+            {/* <img src="/avatar.webp" alt="avatar" className="w-full" /> */}
           </Link>
         </div>
       )}

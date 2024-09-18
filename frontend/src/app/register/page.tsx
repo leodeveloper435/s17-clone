@@ -44,7 +44,7 @@ const Register: React.FC = () => {
         <div className="flex justify-center">
           <Image
             alt="Logo AgroSmart"
-            src={"/AgroSmart.png"}
+            src={"/AgroSmart.webp"}
             width={250}
             height={250}
           ></Image>

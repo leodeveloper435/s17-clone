@@ -49,7 +49,7 @@ const Login: React.FC = () => {
         <div className="flex justify-center py-10">
           <Image
             alt="Logo AgroSmart"
-            src={"/AgroSmart.png"}
+            src={"/AgroSmart.webp"}
             width={250}
             height={250}
           ></Image>
