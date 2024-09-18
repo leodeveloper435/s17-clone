@@ -21,15 +21,14 @@ export function decodeToken(token) {
 }
 
 export function authenticate(req, res, next) {
-  console.log(req.session.jwt)
-  const token = req.session.jwt;
-
-  if (!token) {
+  const authHeader = req.headers.authorization;
+  console.log(authHeader)
+  if (!authHeader) {
     return res
       .status(401)
       .json({ message: "No token provided. Access denied." });
   }
-
+  const token = authHeader.split(" ")[1];
   try {
     const decodedToken = verifyTokenJWT(token);
     req.user = decodedToken;

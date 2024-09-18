@@ -18,7 +18,7 @@ const IaRecomendation = () => {
   const { formState, setFormState, resetForm } = useFormState({ question: "" });
   const [fieldSelect, setFieldSelect] = useState<null | Campo>(null);
   const [conversation, setConversation] = useState<Conversation[]>([]);
-  const fields: Campo[] = userStore((user) => user.fields);
+  const fields: Campo[] = userStore.getState().fields;
 
   const handleSubmit = async () => {
     const client = { type: "question", text: formState.question };
@@ -49,7 +49,7 @@ const IaRecomendation = () => {
     <>
       <Header />
       <div className="h-screen md:max-h-custom ">
-        <div className="w-full flex text-center h-full p-2 bg-[url('/campoBg.jpg')] bg-no-repeat bg-cover">
+        <div className="w-full flex text-center h-full p-2 bg-[url('/campoBg.webp')] bg-no-repeat bg-cover">
           <div className="w-3/12 hidden md:block bg-[#EEC044] rounded-l-2xl py-5 px-3 border-r-2 border-primary-green overflow-auto">
             <p className="text-[1.4rem] text-primary-green font-bold mb-5">
               Últimas preguntas

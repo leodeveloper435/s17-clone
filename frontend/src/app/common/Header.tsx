@@ -4,10 +4,15 @@ import Link from "next/link";
 import { userStore } from "@/context/zustand";
 import MenuButton from "@/components/MenuButton";
 import { NotificationLogo } from "@/svg/NotificationLogo";
+import { icons } from "@/utils/icons";
 
 const Header: React.FC = () => {
-  const user = userStore((data) => data.user);
+  const {user} = userStore.getState();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const closeSesion = () => {
+    if(window) localStorage.removeItem("userStore")
+  }
   return (
     <header
       className="bg-primary-green
@@ -30,7 +35,7 @@ const Header: React.FC = () => {
                    justify-center"
       >
         <img
-          src="/AgroSmart.png"
+          src="/AgroSmart.webp"
           alt="Logo AgroSmart"
           className="lg:w-[200px]
                      -mb-2
@@ -82,7 +87,25 @@ const Header: React.FC = () => {
                    ease-in-out`}
       >
         <Link
-          href="/services"
+          href="/home"
+          className="w-[135px]
+                     h-[43px]
+                     bg-[#F4E2C7]
+                     text-gray-800
+                     text-lg text-center
+                     flex items-center
+                     justify-center
+                     rounded-lg
+                     shadow-md
+                     hover:bg-gray-200
+                     focus:outline-none
+                     focus:ring-2
+                     focus:ring-green-500"
+        >
+          Clima
+        </Link>
+        <Link
+          href="/myFields"
           className="w-[135px]
                      h-[43px]
                      bg-[#F4E2C7]
@@ -97,7 +120,7 @@ const Header: React.FC = () => {
                      focus:ring-2
                      focus:ring-green-500"
         >
-          Servicios
+          Mis campos
         </Link>
         <Link
           href="/market"
@@ -117,25 +140,7 @@ const Header: React.FC = () => {
         >
           Mercado
         </Link>
-        <Link
-          href="/home"
-          className="w-[135px]
-                     h-[43px]
-                     bg-[#F4E2C7]
-                     text-gray-800
-                     text-lg text-center
-                     flex items-center
-                     justify-center
-                     rounded-lg
-                     shadow-md
-                     hover:bg-gray-200
-                     focus:outline-none
-                     focus:ring-2
-                     focus:ring-green-500"
-        >
-          Clima
-        </Link>
-        <Link
+        {/* <Link
           href="/about"
           className="w-[135px]
                      h-[43px]
@@ -152,6 +157,24 @@ const Header: React.FC = () => {
                      focus:ring-green-500"
         >
           Sobre nosotros
+        </Link> */}
+        <Link
+          href="/agroMentor"
+          className="w-[135px]
+                     h-[43px]
+                     bg-[#F4E2C7]
+                     text-gray-800
+                     text-lg text-center
+                     flex items-center
+                     justify-center
+                     rounded-lg
+                     shadow-md
+                     hover:bg-gray-200
+                     focus:outline-none
+                     focus:ring-2
+                     focus:ring-green-500"
+        >
+          AgroMentor
         </Link>
       </nav>
 
@@ -238,7 +261,8 @@ const Header: React.FC = () => {
                      lg:right-0"
         >
           <Link
-            href="/register"
+            href="/login"
+            onClick={closeSesion}
             className="hidden
                        lg:flex
                        lg:h-[43px]
@@ -255,9 +279,10 @@ const Header: React.FC = () => {
                        hover:bg-[#b4862a]
                        focus:outline-none
                        focus:ring-2
-                       focus:ring-yellow-500"
+                       focus:ring-yellow-500
+                       transition-colors"
           >
-            notificaciones
+            Cerrar sesion
           </Link>
 
           <Link href="/register" className="lg:hidden">
@@ -283,9 +308,10 @@ const Header: React.FC = () => {
                        hover:bg-[#b4862a]
                        focus:outline-none
                        focus:ring-2
-                       focus:ring-yellow-500"
+                       focus:ring-yellow-500
+                       bg-[url('/avatar.webp')]"
           >
-            img
+            {/* <img src="/avatar.webp" alt="avatar" className="w-full" /> */}
           </Link>
         </div>
       )}

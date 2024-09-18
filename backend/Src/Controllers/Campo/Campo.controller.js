@@ -12,8 +12,8 @@ export const getCampos = async (req, res) => {
 
 export const getCampoById = async (req, res) => {
   try {
-    const { campoId } = req.params;
-    const campo = await CampoService.getCampoById(campoId);
+    const { id } = req.params;
+    const campo = await CampoService.getCampoById(id);
     if (!campo) {
       res.status(404).json({ error: "Campo no encontrado." });
     } else {
@@ -77,8 +77,8 @@ export const updateCampo = async (req, res) => {
 
 export const deleteCampo = async (req, res) => {
   try {
-    const { campoId } = req.params;
-    const deletedCampo = await CampoService.deleteCampo(campoId);
+    const { id } = req.params;
+    const deletedCampo = await CampoService.deleteCampo(id);
     if (!deletedCampo) {
       res.status(404).json({ error: "Campo no encontrado." });
     } else {

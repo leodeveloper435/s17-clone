@@ -9,6 +9,10 @@ export const userStore = create<UserStoreProps>()(
       fields: [],
       setUser: (newUser) => set(() => ({ user: newUser })),
       setFields: (newFields) => set(() => ({ fields: newFields })),
+      deleteField: (id) => set(({fields}) => {
+        const filterFields = fields.filter((field) => field.id !== id )
+        return { fields: filterFields }
+      }),
       addField: (newField) =>
         set((state) => ({ fields: [...state.fields, newField] })),
       editField: (updatedField) =>
