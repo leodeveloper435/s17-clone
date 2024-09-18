@@ -34,6 +34,9 @@ export const createCampo = async <T>({ body }: FuntionProps<T>) =>
 export const editCampo = async <T>({ url, body }: FuntionProps<T>) =>
   await api.patch(`/campo/${url}`, body);
 
+export const deleteCampo = async <T>({ url }: FuntionProps<T>) =>
+  await api.delete(`/campo/${url}`);
+
 // Market services
 
 export const getMarketGrainPrices = async () => await api.get("/market");

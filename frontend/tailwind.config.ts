@@ -22,7 +22,7 @@ const config: Config = {
         "seconday-green": "#86B762",
       },
       backgroundImage: {
-        loginBg: "url('/loginAndRegisterBG.jpeg')",
+        loginBg: "url('/loginAndRegisterBG.webp')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",

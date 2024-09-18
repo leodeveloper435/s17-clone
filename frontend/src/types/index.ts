@@ -5,7 +5,7 @@ export interface QueryProps {
 }
 
 export interface FuntionProps<T> {
-  url?: string;
+  url?: string | number;
   querys?: QueryProps;
   body?: T;
 }
@@ -45,6 +45,7 @@ export interface UserStoreProps {
   fields: Campo[];
   setUser: (user: UserTypes) => void;
   setFields: (fiels: Campo[]) => void;
+  deleteField: (id: number) => void;
   addField: (fiel: Campo) => void;
   editField: (fiel: Campo) => void;
 }
